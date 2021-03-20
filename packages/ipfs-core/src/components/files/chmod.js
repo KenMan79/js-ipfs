@@ -206,7 +206,6 @@ function calculateMode (mode, metadata) {
     }
   }
 
-  // @ts-ignore
   return mode
 }
 
@@ -261,7 +260,7 @@ module.exports = (context) => {
             for await (const entry of source) {
               yield async function () {
                 /** @type {DAGNode} */
-                // @ts-ignore
+                // @ts-ignore - cannot derive type
                 const node = entry.content
 
                 const buf = node.serialize()

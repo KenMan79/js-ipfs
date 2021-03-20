@@ -31,13 +31,11 @@ module.exports = function grpcMfsWrite (ipfs, options = {}) {
     const result = await content.peek()
     const {
       value: {
-        // @ts-ignore
         path
       }
     } = result
     content.push(result.value)
 
-    // @ts-ignore
     await ipfs.files.write(path, map(content, ({ content }) => content), opts)
 
     return {}

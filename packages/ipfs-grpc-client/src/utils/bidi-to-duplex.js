@@ -30,10 +30,7 @@ async function sendMessages (service, client, source) {
  * @returns {{ source: AsyncIterable<any>, sink: import('it-pushable').Pushable<any> }}
  **/
 module.exports = function bidiToDuplex (grpc, service, options) {
-  // @ts-ignore
   const source = pushable()
-
-  // @ts-ignore
   const sink = pushable()
 
   const client = grpc.client(service, {

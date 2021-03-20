@@ -4,11 +4,11 @@ const log = require('debug')('ipfs:daemon')
 const get = require('dlv')
 const set = require('just-safe-set')
 const Multiaddr = require('multiaddr')
-// @ts-ignore
+// @ts-ignore - no types
 const WebRTCStar = require('libp2p-webrtc-star')
-// @ts-ignore
+// @ts-ignore - no types
 const DelegatedPeerRouter = require('libp2p-delegated-peer-routing')
-// @ts-ignore
+// @ts-ignore - no types
 const DelegatedContentRouter = require('libp2p-delegated-content-routing')
 const { create: ipfsHttpClient } = require('ipfs-http-client')
 const IPFS = require('ipfs-core')
@@ -28,7 +28,7 @@ class Daemon {
     if (process.env.IPFS_MONITORING) {
       // Setup debug metrics collection
       const prometheusClient = require('prom-client')
-      // @ts-ignore
+      // @ts-ignore - no types
       const prometheusGcStats = require('prometheus-gc-stats')
       const collectDefaultMetrics = prometheusClient.collectDefaultMetrics
       // @ts-ignore - timeout isn't in typedefs

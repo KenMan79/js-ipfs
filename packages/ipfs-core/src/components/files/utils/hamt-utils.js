@@ -162,7 +162,7 @@ const generatePath = async (context, fileName, rootNode) => {
       prefix: toPrefix(currentBucket._posAtParent)
     })
 
-    // @ts-ignore
+    // @ts-ignore - only the root bucket's parent will be undefined
     currentBucket = currentBucket._parent
   }
 

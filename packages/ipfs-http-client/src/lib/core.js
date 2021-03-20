@@ -174,13 +174,13 @@ class Client extends HTTP {
       agent: opts.agent
     })
 
-    // @ts-ignore
+    // @ts-ignore - cannot delete no-optional fields
     delete this.get
-    // @ts-ignore
+    // @ts-ignore - cannot delete no-optional fields
     delete this.put
-    // @ts-ignore
+    // @ts-ignore - cannot delete no-optional fields
     delete this.delete
-    // @ts-ignore
+    // @ts-ignore - cannot delete no-optional fields
     delete this.options
 
     const fetch = this.fetch

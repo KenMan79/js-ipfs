@@ -193,11 +193,12 @@ exports.CoreService = class CoreService {
 const decodeAddAllInput = input =>
   decodeIterable(input, decodeFileInput)
 
-// @ts-ignore
+/**
+ * @param {*} input
+ */
 const decodeAddInput = input =>
   matchInput(
     input,
-    // @ts-ignore
     data => {
       if (data.type === 'RemoteIterable') {
         return { content: decodeIterable(data, decodeFileInput) }
@@ -207,9 +208,12 @@ const decodeAddInput = input =>
     }
   )
 
-// @ts-ignore
+/**
+ *
+ * @param {*} input
+* @returns
+*/
 const decodeFileInput = input =>
-  // @ts-ignore
   matchInput(input, file => ({
     ...file,
     content: file.content && decodeFileContent(file.content)
@@ -219,10 +223,14 @@ const decodeFileInput = input =>
  * @param {EncodedFileContent} content
  */
 const decodeFileContent = content =>
-  // @ts-ignore
   matchInput(content, input => decodeIterable(input, identity))
 
-// @ts-ignore
+/**
+ * @template I, O
+ * @param {I} input
+ * @param {(input: any) => O} decode
+ * @returns {I | O}
+ */
 const matchInput = (input, decode) => {
   if (
     typeof input === 'string' ||

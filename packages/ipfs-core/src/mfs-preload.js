@@ -29,7 +29,8 @@ module.exports = ({ preload, files, options = {} }) => {
   }
 
   let rootCid = ''
-  let timeoutId = 0
+  /** @type {any} */
+  let timeoutId
 
   const preloadMfs = async () => {
     try {

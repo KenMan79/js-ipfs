@@ -4,7 +4,7 @@ const { Server: WebSocketServer } = require('ws')
 const { EventEmitter } = require('events')
 const WebSocketMessageChannel = require('./web-socket-message-channel')
 const debug = require('debug')('ipfs:grpc-server:utils:web-socket-server')
-// @ts-ignore
+// @ts-ignore - no types
 const coerce = require('coercer')
 const { camelCase } = require('change-case')
 

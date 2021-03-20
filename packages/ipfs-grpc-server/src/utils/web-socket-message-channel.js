@@ -1,6 +1,5 @@
 'use strict'
 
-// @ts-ignore
 const pushable = require('it-pushable')
 const { paramCase } = require('change-case')
 
@@ -54,10 +53,7 @@ class WebsocketMessageChannel {
       serialize: (message) => Buffer.from([])
     }
 
-    // @ts-ignore
     this.source = pushable()
-
-    // @ts-ignore
     this.sink = pushable()
 
     ws.on('message', (buf) => {

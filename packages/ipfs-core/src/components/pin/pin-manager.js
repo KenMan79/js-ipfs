@@ -3,7 +3,7 @@
 
 const CID = require('cids')
 const errCode = require('err-code')
-// @ts-ignore
+// @ts-ignore - no types
 const dagCborLinks = require('dag-cbor-links')
 const debug = require('debug')
 // const parallelBatch = require('it-parallel-batch')
@@ -100,7 +100,6 @@ class PinManager {
     const node = await this.ipld.get(cid, options)
 
     if (cid.codec === 'dag-pb') {
-      // @ts-ignore
       for (const link of node.Links) {
         yield link.Hash
         yield * this._walkDag(link.Hash, options)
