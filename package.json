@@ -21,7 +21,6 @@
     "test:interface:http-go": "lerna run test:interface:http-go",
     "test:interface:http-js": "lerna run test:interface:http-js",
     "test:interface:message-port-client": "lerna run test:interface:message-port-client",
-    "prepare": "lerna run prepare",
     "coverage": "lerna run coverage",
     "build": "lerna run build",
     "clean": "lerna run clean",
