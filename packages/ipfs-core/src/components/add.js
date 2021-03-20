@@ -11,7 +11,8 @@ module.exports = ({ addAll }) => {
    * @type {import('ipfs-core-types/src/root').API["add"]}
    */
   async function add (entry, options) {
-    const result = await last(addAll([entry], options))
+    // @ts-ignore TODO: https://github.com/ipfs/js-ipfs/issues/3290
+    const result = await last(addAll(entry, options))
     // Note this should never happen as `addAll` should yield at least one item
     // but to satisfy type checker we perfom this check and for good measure
     // throw an error in case it does happen.
