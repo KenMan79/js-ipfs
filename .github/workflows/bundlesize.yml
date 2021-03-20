@@ -11,10 +11,11 @@ jobs:
     strategy:
       matrix:
         project:
-          - packages/ipfs-core-utils
-          - packages/ipfs-core
-          - packages/ipfs-http-client
           - packages/ipfs
+          - packages/ipfs-core
+          - packages/ipfs-client
+          - packages/ipfs-grpc-client
+          - packages/ipfs-http-client
           - packages/ipfs-message-port-client
     steps:
       - uses: actions/checkout@v2

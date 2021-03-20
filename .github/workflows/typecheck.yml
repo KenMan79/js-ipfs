@@ -11,16 +11,22 @@ jobs:
       matrix:
         node-version: [14.x]
         project:
-          - packages/ipfs-core-utils
-          - packages/ipfs-core
-          - packages/ipfs-http-client
           - packages/ipfs
           - packages/ipfs-cli
-          - packages/ipfs-http-server
+          - packages/ipfs-client
+          - packages/ipfs-core
+          - packages/ipfs-core-types
+          - packages/ipfs-core-utils
+          - packages/ipfs-daemon
+          - packages/ipfs-grpc-client
+          - packages/ipfs-gprc-protocol
+          - packages/ipfs-gprc-server
+          - packages/ipfs-http-client
           - packages/ipfs-http-gateway
+          - packages/ipfs-http-server
+          - packages/ipfs-message-port-client
           - packages/ipfs-message-port-protocol
           - packages/ipfs-message-port-server
-          - packages/ipfs-message-port-client
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
