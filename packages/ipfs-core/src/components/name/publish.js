@@ -4,17 +4,16 @@ const debug = require('debug')
 const { default: parseDuration } = require('parse-duration')
 const crypto = require('libp2p-crypto')
 const errcode = require('err-code')
+const uint8ArrayFromString = require('uint8arrays/from-string')
+const uint8ArrayToString = require('uint8arrays/to-string')
 
 const log = Object.assign(debug('ipfs:name:publish'), {
   error: debug('ipfs:name:publish:error')
 })
 
-const { OFFLINE_ERROR } = require('../../utils')
+const { OFFLINE_ERROR, normalizePath } = require('../../utils')
 const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
-
-/**
- * @typedef {import('cids')} CID
- */
+const { resolvePath } = require('./utils')
 
 /**
  * IPNS - Inter-Planetary Naming System
@@ -59,6 +58,13 @@ module.exports = ({ ipns, ipld, peerId, isOnline, keychain }) => {
     }
 
     // TODO: params related logic should be in the core implementation
+    // Normalize path value
+    try {
+      value = normalizePath(value)
+    } catch (err) {
+      log.error(err)
+      throw err
+    }
 
     let pubLifetime = 0
     try {
@@ -76,11 +82,18 @@ module.exports = ({ ipns, ipld, peerId, isOnline, keychain }) => {
       // verify if the path exists, if not, an error will stop the execution
       lookupKey(key),
       // if resolving, do a get so we make sure we have the blocks
-      resolve ? ipld.get(value, options) : Promise.resolve()
+      resolve ? resolvePath({ ipns, ipld }, value) : Promise.resolve()
     ])
 
+    const bytes = uint8ArrayFromString(value)
+
     // Start publishing process
-    return ipns.publish(results[0], value.bytes, pubLifetime)
+    const result = await ipns.publish(results[0], bytes, pubLifetime)
+
+    return {
+      name: result.name,
+      value: uint8ArrayToString(result.value)
+    }
   }
 
   return withTimeoutOption(publish)

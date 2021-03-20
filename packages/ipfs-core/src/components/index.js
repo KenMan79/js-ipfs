@@ -8,6 +8,7 @@ const { DAGNode } = require('ipld-dag-pb')
 const { UnixFS } = require('ipfs-unixfs')
 const initAssets = require('../runtime/init-assets-nodejs')
 const { AlreadyInitializedError } = require('../errors')
+const uint8ArrayFromString = require('uint8arrays/from-string')
 
 const createStartAPI = require('./start')
 const createStopAPI = require('./stop')
@@ -240,7 +241,7 @@ class IPFS {
       await initAssets({ addAll: ipfs.addAll, print })
 
       log('initializing IPNS keyspace')
-      await ipfs.ipns.initializeKeyspace(storage.peerId.privKey, cid.bytes)
+      await ipfs.ipns.initializeKeyspace(storage.peerId.privKey, uint8ArrayFromString(`/ipfs/${cid}`))
     }
 
     if (options.start !== false) {

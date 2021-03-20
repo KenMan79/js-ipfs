@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest # https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu1804-README.md
     strategy:
       matrix:
+        node-version: [15.x]
         project:
           - packages/ipfs
           - packages/ipfs-core
@@ -18,6 +19,11 @@ jobs:
           - packages/ipfs-http-client
           - packages/ipfs-message-port-client
     steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
       - uses: actions/checkout@v2
       - run: npm install
       - name: Bundlesize ${{ matrix.project }}

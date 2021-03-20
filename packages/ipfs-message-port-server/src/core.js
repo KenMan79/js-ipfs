@@ -211,8 +211,8 @@ const decodeAddInput = input =>
 /**
  *
  * @param {*} input
-* @returns
-*/
+ * @returns
+ */
 const decodeFileInput = input =>
   matchInput(input, file => ({
     ...file,

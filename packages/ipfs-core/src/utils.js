@@ -28,12 +28,12 @@ exports.MFS_MAX_LINKS = 174
  * Returns a well-formed ipfs Path.
  * The returned path will always be prefixed with /ipfs/ or /ipns/.
  *
- * @param  {string} pathStr - An ipfs-path, or ipns-path or a cid
+ * @param  {string | CID} pathStr - An ipfs-path, or ipns-path or a cid
  * @returns {string} - ipfs-path or ipns-path
  * @throws on an invalid @param pathStr
  */
 const normalizePath = (pathStr) => {
-  if (isIpfs.cid(pathStr)) {
+  if (isIpfs.cid(pathStr) || CID.isCID(pathStr)) {
     return `/ipfs/${new CID(pathStr)}`
   } else if (isIpfs.path(pathStr)) {
     return pathStr

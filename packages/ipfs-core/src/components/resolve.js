@@ -14,7 +14,7 @@ module.exports = ({ ipld, name }) => {
   /**
    * @type {import('ipfs-core-types/src/root').API["resolve"]}
    */
-  async function resolve (path, opts = { recursive: true, cidBase: 'base58btc' }) {
+  async function resolve (path, opts = {}) {
     if (!isIpfs.path(path)) {
       throw new Error('invalid argument ' + path)
     }

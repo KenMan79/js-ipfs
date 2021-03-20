@@ -1,7 +1,8 @@
 'use strict'
 
 const isIPFS = require('is-ipfs')
-const CID = require('cids')
+const toCidAndPath = require('ipfs-core-utils/src/to-cid-and-path')
+const drain = require('it-drain')
 
 /**
  * resolves the given path by parsing out protocol-specific entries
@@ -12,14 +13,17 @@ const CID = require('cids')
  * @param {import('ipld')} context.ipld
  * @param {string} name
  */
-exports.resolvePath = ({ ipns, ipld }, name) => {
+exports.resolvePath = async ({ ipns, ipld }, name) => {
   // ipns path
   if (isIPFS.ipnsPath(name)) {
     return ipns.resolve(name)
   }
 
-  const cid = new CID(name.substring('/ipfs/'.length))
+  const {
+    cid,
+    path
+  } = toCidAndPath(name)
 
   // ipfs path
-  return ipld.get(cid)
+  await drain(ipld.resolve(cid, path || ''))
 }

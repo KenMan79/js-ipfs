@@ -20,7 +20,7 @@ export interface API<OptionExtension = {}> {
    * console.log(`https://gateway.ipfs.io/ipns/${res.name}`)
    * ```
    */
-  publish: (value: CID, options?: PublishOptions & OptionExtension) => Promise<PublishResult>
+  publish: (value: CID | string, options?: PublishOptions & OptionExtension) => Promise<PublishResult>
 
   /**
    * Given a key, query the DHT for its best value.
@@ -78,7 +78,7 @@ export interface PublishResult {
   /**
    * The IPNS record
    */
-  value: Uint8Array
+  value: string
 }
 
 export interface ResolveOptions extends AbortOptions {

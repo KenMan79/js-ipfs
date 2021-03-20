@@ -6,6 +6,7 @@ const { mergeOptions } = require('../../utils')
 const CID = require('cids')
 // @ts-ignore no types
 const isDomain = require('is-domain-name')
+const uint8ArrayToString = require('uint8arrays/to-string')
 
 const log = Object.assign(debug('ipfs:name:resolve'), {
   error: debug('ipfs:name:resolve:error')
@@ -80,7 +81,8 @@ module.exports = ({ dns, ipns, peerId, isOnline, options: { offline } }) => {
     }
 
     // TODO: convert ipns.resolve to return an iterator
-    yield appendRemainder(await ipns.resolve(`/${namespace}/${hash}`, options), remainder)
+    const value = await ipns.resolve(`/${namespace}/${hash}`, options)
+    yield appendRemainder(value instanceof Uint8Array ? uint8ArrayToString(value) : value, remainder)
   }
 
   return withTimeoutOption(resolve)
