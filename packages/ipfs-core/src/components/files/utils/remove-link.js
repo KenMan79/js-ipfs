@@ -44,7 +44,7 @@ const mh = require('multihashing-async').multihash
  * @param {RemoveLinkOptions} options
  */
 const removeLink = async (context, options) => {
-  const parent = options.parent
+  let parent = options.parent
 
   if (options.parentCid) {
     if (!CID.isCID(options.parentCid)) {
@@ -52,7 +52,7 @@ const removeLink = async (context, options) => {
     }
 
     log(`Loading parent node ${options.parentCid}`)
-    options.parent = await context.ipld.get(options.parentCid)
+    parent = await context.ipld.get(options.parentCid)
   }
 
   if (!parent) {
