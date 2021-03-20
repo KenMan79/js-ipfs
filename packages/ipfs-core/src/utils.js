@@ -5,11 +5,10 @@ const isIpfs = require('is-ipfs')
 const CID = require('cids')
 const Key = require('interface-datastore').Key
 const errCode = require('err-code')
-const toCidAndPath = require('ipfs-core-utils/src/to-cid-and-path')
 const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
 /** @type {typeof Object.assign} */
 const mergeOptions = require('merge-options')
-const last = require('it-last')
+const resolve = require('./components/dag/resolve')
 
 /**
  * @typedef {import('ipfs-core-types/src/basic').AbortOptions} AbortOptions
@@ -80,27 +79,13 @@ const normalizeCidPath = (path) => {
  * @returns {Promise<CID>}
  */
 const resolvePath = async function (ipld, ipfsPath, options = {}) {
-  if (isIpfs.cid(ipfsPath)) {
-    // @ts-ignore - CID|string seems to confuse typedef
-    return new CID(ipfsPath)
-  }
+  const preload = () => {}
+  preload.stop = () => {}
+  preload.start = () => {}
 
-  const {
-    cid,
-    path
-  } = toCidAndPath(ipfsPath)
+  const { cid } = await resolve({ ipld, preload })(ipfsPath, { preload: false })
 
-  if (!path) {
-    return cid
-  }
-
-  const result = await last(ipld.resolve(cid, path, options))
-
-  if (!result) {
-    throw new Error('Not found')
-  }
-
-  return result.cid
+  return cid
 }
 
 /**

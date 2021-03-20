@@ -26,6 +26,6 @@ export interface StatResult {
   numObjects: BigInteger
   repoPath: string
   repoSize: BigInteger
-  version: number
+  version: string
   storageMax: BigInteger
 }

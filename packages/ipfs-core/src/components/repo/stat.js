@@ -17,7 +17,7 @@ module.exports = ({ repo }) => {
       numObjects: stats.numObjects,
       repoSize: stats.repoSize,
       repoPath: stats.repoPath,
-      version: stats.version,
+      version: `${stats.version}`,
       storageMax: stats.storageMax
     }
   }

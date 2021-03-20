@@ -58,7 +58,7 @@ module.exports = ({ ipld }) => {
     }
 
     if (cid.codec === 'dag-pb') {
-      return result.value.Links
+      return result.Links
     }
 
     if (cid.codec === 'dag-cbor') {
