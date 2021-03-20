@@ -66,7 +66,7 @@ module.exports = {
         }, {
           type: 'js',
           ipfsModule: require(__dirname),
-          ipfsHttpModule: require('ipfs-http-client'),
+          ipfsHttpModule: require('ipfs-http-client').create,
           ipfsBin: path.join(__dirname, 'src', 'cli.js'),
           ipfsOptions: {
             libp2p: {
@@ -80,7 +80,7 @@ module.exports = {
             ipfsBin: require('go-ipfs').path()
           },
           js: {
-            ipfsClientModule: require('ipfs-client')
+            ipfsClientModule: require('ipfs-client').create
           }
         }).start()
         return {

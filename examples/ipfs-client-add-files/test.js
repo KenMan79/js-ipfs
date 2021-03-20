@@ -4,7 +4,7 @@ const path = require('path')
 const execa = require('execa')
 const { createFactory } = require('ipfsd-ctl')
 const df = createFactory({
-  ipfsClientModule: require('ipfs-client'),
+  ipfsClientModule: require('ipfs-client').create,
   ipfsBin: require.resolve('ipfs/src/cli.js')
 })
 const {

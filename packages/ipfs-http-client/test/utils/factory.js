@@ -7,7 +7,7 @@ const { isNode } = require('ipfs-utils/src/env')
 const commonOptions = {
   test: true,
   type: 'go',
-  ipfsHttpModule: require('../../src'),
+  ipfsHttpModule: require('../../src').create,
   endpoint: process.env.IPFSD_SERVER
 }
 

@@ -3,7 +3,7 @@
 
 const { expect } = require('aegir/utils/chai')
 const nock = require('nock')
-const ipfsClient = require('../../src')
+const ipfsClient = require('../../src').create
 
 describe('.swarm.peers', function () {
   this.timeout(50 * 1000) // slow CI

@@ -8,7 +8,7 @@ const delay = require('delay')
 const { createFactory } = require('ipfsd-ctl')
 const df = createFactory({
   ipfsModule: require('ipfs'),
-  ipfsHttpModule: require('ipfs-http-client')
+  ipfsHttpModule: require('ipfs-http-client').create
 })
 const {
   startServer
