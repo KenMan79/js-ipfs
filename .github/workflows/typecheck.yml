@@ -19,8 +19,7 @@ jobs:
           - packages/ipfs-core-utils
           - packages/ipfs-daemon
           - packages/ipfs-grpc-client
-          - packages/ipfs-gprc-protocol
-          - packages/ipfs-gprc-server
+          - packages/ipfs-grpc-server
           - packages/ipfs-http-client
           - packages/ipfs-http-gateway
           - packages/ipfs-http-server

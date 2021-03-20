@@ -1,6 +1,6 @@
 'use strict'
 
-// dns-nodejs gets replaced by dns-browser when webpacked/browserified
+// dns-nodejs gets replaced by dns-browser when bundled
 const dns = require('../runtime/dns-nodejs')
 const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
 

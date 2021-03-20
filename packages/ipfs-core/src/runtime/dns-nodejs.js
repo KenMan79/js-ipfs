@@ -14,11 +14,12 @@ const MAX_RECURSIVE_DEPTH = 32
  */
 module.exports = (domain, opts) => {
   // recursive is true by default, it's set to false only if explicitly passed as argument in opts
-  const recursive = opts.recursive == null ? true : Boolean(opts.recursive)
+  const nonRecursive = !opts.recursive
 
-  let depth
-  if (recursive) {
-    depth = MAX_RECURSIVE_DEPTH
+  /** @type {number | undefined} */
+  let depth = MAX_RECURSIVE_DEPTH
+  if (nonRecursive) {
+    depth = undefined
   }
 
   return recursiveResolveDnslink(domain, depth)
@@ -26,10 +27,10 @@ module.exports = (domain, opts) => {
 
 /**
  * @param {string} domain
- * @param {number} [depth=0]
+ * @param {number} [depth]
  * @returns {Promise<string>}
  */
-async function recursiveResolveDnslink (domain, depth = 0) {
+async function recursiveResolveDnslink (domain, depth) {
   if (depth === 0) {
     throw errcode(new Error('recursion limit exceeded'), 'ERR_DNSLINK_RECURSION_LIMIT')
   }

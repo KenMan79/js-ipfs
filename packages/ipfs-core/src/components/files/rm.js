@@ -3,11 +3,11 @@
 const errCode = require('err-code')
 const updateTree = require('./utils/update-tree')
 const updateMfsRoot = require('./utils/update-mfs-root')
-const toSources = require('./utils/to-sources')
 const removeLink = require('./utils/remove-link')
 const toMfsPath = require('./utils/to-mfs-path')
 const toTrail = require('./utils/to-trail')
 const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
+const mergeOptions = require('merge-options').bind({ ignoreUndefined: true })
 
 /**
  * @typedef {import('multihashes').HashName} HashName
@@ -41,11 +41,17 @@ module.exports = (context) => {
   /**
    * @type {import('ipfs-core-types/src/files').API["rm"]}
    */
-  async function mfsRm (...args) {
-    const {
-      sources,
-      options
-    } = await toSources(context, args, defaultOptions)
+  async function mfsRm (paths, opts) {
+    /** @type {DefaultOptions} */
+    const options = mergeOptions(defaultOptions, opts)
+
+    if (!Array.isArray(paths)) {
+      paths = [paths]
+    }
+
+    const sources = await Promise.all(
+      paths.map(path => toMfsPath(context, path, options))
+    )
 
     if (!sources.length) {
       throw errCode(new Error('Please supply at least one path to remove'), 'ERR_INVALID_PARAMS')
