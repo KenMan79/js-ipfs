@@ -10,7 +10,7 @@ const configure = require('./lib/configure')
  */
 
 /**
- * @param {import("./lib/core").ClientOptions} options
+ * @param {import('./types').Options} options
  */
 module.exports = (options) => {
   const all = addAll(options)

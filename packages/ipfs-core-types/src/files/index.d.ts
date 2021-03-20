@@ -73,6 +73,11 @@ export interface ChmodOptions extends MFSOptions, AbortOptions {
    * The CID version to use for any updated entries
    */
   cidVersion?: CIDVersion
+
+  /**
+   * The threshold for splitting any modified folders into HAMT shards
+   */
+  shardSplitThreshold?: number
 }
 
 export interface CpOptions extends MFSOptions, AbortOptions {
@@ -213,6 +218,11 @@ export interface TouchOptions extends MFSOptions, AbortOptions {
    * The CID version to use for any updated entries
    */
   cidVersion?: CIDVersion
+
+  /**
+   * The threshold for splitting any modified folders into HAMT shards
+   */
+  shardSplitThreshold?: number
 }
 
 export interface RmOptions extends MFSOptions, AbortOptions {
@@ -304,6 +314,16 @@ export interface WriteOptions extends MFSOptions, AbortOptions {
    * The threshold for splitting any modified folders into HAMT shards
    */
   shardSplitThreshold?: number
+
+  /**
+   * If writing a file and only a single leaf would be present, store the file data in the root node
+   */
+  reduceSingleLeafToSelf?: boolean
+
+  /**
+   * What sort of DAG structure to create
+   */
+  strategy?: 'balanced' | 'trickle'
 }
 
 export interface MvOptions extends MFSOptions, AbortOptions {

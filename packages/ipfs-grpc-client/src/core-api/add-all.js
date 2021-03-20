@@ -39,12 +39,16 @@ function sendDirectory (index, sink, path, mode, mtime) {
 /**
  * @param {number} index
  * @param {import('it-pushable').Pushable<any>} sink
- * @param {AsyncIterable<Uint8Array>} content
+ * @param {AsyncIterable<Uint8Array> | Iterable<Uint8Array> | Uint8Array} content
  * @param {string} [path]
  * @param {number} [mode]
  * @param {import('ipfs-unixfs').Mtime} [mtime]
  */
 async function sendFile (index, sink, content, path, mode, mtime) {
+  if (content instanceof Uint8Array) {
+    content = [content]
+  }
+
   for await (const buf of content) {
     /**
      * TODO: type properly after https://github.com/ipfs/js-ipfs/issues/3594

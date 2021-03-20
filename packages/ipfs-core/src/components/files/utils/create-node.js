@@ -8,7 +8,7 @@ const mc = require('multicodec')
 const mh = require('multihashing-async').multihash
 
 /**
- * @typedef {import('ipfs-core-types/src/basic').ToMTime} Mtime
+ * @typedef {import('ipfs-unixfs').MtimeLike} MtimeLike
  * @typedef {import('cids').CIDVersion} CIDVersion
  * @typedef {import('../').MfsContext} MfsContext
  */
@@ -20,7 +20,7 @@ const mh = require('multihashing-async').multihash
  * @param {import('multihashes').HashName} options.hashAlg
  * @param {CIDVersion} options.cidVersion
  * @param {boolean} options.flush
- * @param {Mtime} [options.mtime]
+ * @param {MtimeLike} [options.mtime]
  * @param {number} [options.mode]
  */
 const createNode = async (context, type, options) => {

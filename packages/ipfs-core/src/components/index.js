@@ -3,7 +3,7 @@
 const { mergeOptions } = require('../utils')
 const { isTest } = require('ipfs-utils/src/env')
 const log = require('debug')('ipfs')
-
+const errCode = require('err-code')
 const { DAGNode } = require('ipld-dag-pb')
 const { UnixFS } = require('ipfs-unixfs')
 const initAssets = require('../runtime/init-assets-nodejs')
@@ -182,6 +182,22 @@ class IPFS {
         return net ? net.libp2p : undefined
       }
     })
+
+    // unimplemented methods
+    const notImplemented = () => Promise.reject(errCode(new Error('Not implemented'), 'ERR_NOT_IMPLEMENTED'))
+    const notImplementedIter = async function * () { throw errCode(new Error('Not implemented'), 'ERR_NOT_IMPLEMENTED') } // eslint-disable-line require-yield
+    this.commands = notImplemented
+    this.diag = {
+      cmds: notImplemented,
+      net: notImplemented,
+      sys: notImplemented
+    }
+    this.log = {
+      level: notImplemented,
+      ls: notImplemented,
+      tail: notImplementedIter
+    }
+    this.mount = notImplemented
   }
 
   /**

@@ -18,6 +18,11 @@ const esbuild = {
         build.onResolve({ filter: /^stream$/ }, () => {
           return { path: require.resolve('readable-stream') }
         })
+
+        // TODO: remove me when the main/exports problem is resolved
+        build.onResolve({ filter: /^cborg$/ }, () => {
+          return { path: require.resolve('cborg') }
+        })
       }
     }
   ]

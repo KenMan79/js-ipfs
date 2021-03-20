@@ -18,11 +18,11 @@ export interface PeerResult {
 }
 
 export interface DHTFindProvsOptions extends AbortOptions {
-  numProviders: number
+  numProviders?: number
 }
 
 export interface DHTProvideOptions extends AbortOptions {
-  recursive: boolean
+  recursive?: boolean
 }
 
 export enum QueryEventType {

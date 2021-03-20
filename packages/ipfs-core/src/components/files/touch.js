@@ -17,14 +17,14 @@ const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
 /**
  * @typedef {import('multihashes').HashName} HashName
  * @typedef {import('cids').CIDVersion} CIDVersion
- * @typedef {import('ipfs-core-types/src/basic').ToMTime} Mtime
+ * @typedef {import('ipfs-unixfs').MtimeLike} MtimeLike
  * @typedef {import('./').MfsContext} MfsContext
  * @typedef {object} DefaultOptions
  * @property {boolean} flush
  * @property {number} shardSplitThreshold
  * @property {CIDVersion} cidVersion
  * @property {HashName} hashAlg
- * @property {Mtime} [mtime]
+ * @property {MtimeLike} [mtime]
  * @property {AbortSignal} [signal]
  * @property {number} [timeout]
  */

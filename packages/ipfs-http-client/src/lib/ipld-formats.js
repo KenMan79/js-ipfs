@@ -14,7 +14,9 @@ const multicodec = require('multicodec')
 /**
  * @type {LoadFormatFn}
  */
-const noop = () => {}
+const noop = () => {
+  return Promise.reject(new Error('Could not load format'))
+}
 
 /**
  * Return an object containing supported IPLD Formats

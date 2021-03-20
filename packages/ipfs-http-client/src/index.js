@@ -11,12 +11,13 @@ const urlSource = require('ipfs-utils/src/files/url-source')
 
 /**
  * @typedef {import('./types').EndpointConfig} EndpointConfig
+ * @typedef {import('./types').Options} Options
  */
 
 /**
- * @param {import("./lib/core").ClientOptions} options
+ * @param {Options} options
  */
-function ipfsClient (options = {}) {
+function create (options = {}) {
   /** @type {import('ipfs-core-types').IPFS & { getEndpointConfig: () => EndpointConfig }} */
   const client = {
     add: require('./add')(options),
@@ -58,6 +59,13 @@ function ipfsClient (options = {}) {
   return client
 }
 
-Object.assign(ipfsClient, { CID, multiaddr, multibase, multicodec, multihash, globSource, urlSource })
-
-module.exports = ipfsClient
+module.exports = {
+  create,
+  CID,
+  multiaddr,
+  multibase,
+  multicodec,
+  multihash,
+  globSource,
+  urlSource
+}

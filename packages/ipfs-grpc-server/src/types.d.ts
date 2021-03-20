@@ -20,4 +20,5 @@ export interface WebsocketServer extends EventEmitter {
   // events
   on(event: 'error', listener: (err: Error) => void): this
   on(event: 'data', listener: (message: WebsocketMessage) => void): this
+  stop: () => Promise<void>
 }

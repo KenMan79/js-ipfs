@@ -13,11 +13,15 @@ import { API as NameAPI } from './name'
 import { API as ObjectAPI } from './object'
 import { API as PinAPI } from './pin'
 import { API as PubsubAPI } from './pubsub'
-import { API as RefsAPI } from './refs'
+import { Refs, Local } from './refs'
 import { API as RepoAPI } from './repo'
 import { API as StatsAPI } from './stats'
 import { API as SwarmAPI } from './swarm'
 import { AbortOptions, Await, AwaitIterable } from './basic'
+
+interface RefsAPI extends Refs {
+  local: Local
+}
 
 export interface IPFS extends RootAPI {
   bitswap: BitswapAPI
@@ -34,14 +38,10 @@ export interface IPFS extends RootAPI {
   object: ObjectAPI
   pin: PinAPI
   pubsub: PubsubAPI
-  refs: Refs
+  refs: RefsAPI
   repo: RepoAPI
   stats: StatsAPI
   swarm: SwarmAPI
-}
-
-interface Refs extends RefsAPI["refs"] {
-  local: RefsAPI["local"]
 }
 
 export type {

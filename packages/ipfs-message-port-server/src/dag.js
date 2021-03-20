@@ -8,7 +8,7 @@ const collect = require('it-all')
  * @typedef {import('ipfs-core-types').IPFS} IPFS
  * @typedef {import('cids')} CID
  * @typedef {import('ipfs-message-port-protocol/src/cid').EncodedCID} EncodedCID
-  * @typedef {import('ipfs-message-port-protocol/src/dag').EncodedDAGNode} EncodedDAGNode
+ * @typedef {import('ipfs-message-port-protocol/src/dag').EncodedDAGNode} EncodedDAGNode
  * @typedef {import('ipfs-core-types/src/dag').PutOptions} PutOptions
  */
 

@@ -15,7 +15,7 @@ module.exports = configure(api => {
   /**
    * @type {DHTAPI["findProvs"]}
    */
-  async function * findProvs (cid, options = { numProviders: 20 }) {
+  async function * findProvs (cid, options = {}) {
     const res = await api.post('dht/findprovs', {
       timeout: options.timeout,
       signal: options.signal,

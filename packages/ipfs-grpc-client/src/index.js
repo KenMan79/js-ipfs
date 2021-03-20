@@ -4,6 +4,10 @@ const toUrlString = require('ipfs-core-utils/src/to-url-string')
 const loadServices = require('./utils/load-services')
 const { grpc } = require('@improbable-eng/grpc-web')
 
+/**
+ * @typedef {import('./types').Options} Options
+ */
+
 const service = loadServices()
 
 /** @type {Record<string, string>} */
@@ -24,26 +28,33 @@ function normaliseUrls (opts) {
 }
 
 /**
- * @param {import('./types').Options} [opts]
+ * @param {Options} [opts]
  */
-module.exports = function createClient (opts = { url: '' }) {
-  opts.url = toUrlString(opts.url)
+function create (opts = { url: '' }) {
+  const options = {
+    ...opts,
+    url: toUrlString(opts.url)
+  }
 
   // @improbable-eng/grpc-web requires http:// protocol URLs, not ws://
-  normaliseUrls(opts)
+  normaliseUrls(options)
 
   const client = {
     // @ts-ignore - TODO: fix after https://github.com/ipfs/js-ipfs/issues/3594
-    addAll: require('./core-api/add-all')(grpc, service.Root.add, opts),
+    addAll: require('./core-api/add-all')(grpc, service.Root.add, options),
     // @ts-ignore - TODO: fix after https://github.com/ipfs/js-ipfs/issues/3594
-    id: require('./core-api/id')(grpc, service.Root.id, opts),
+    id: require('./core-api/id')(grpc, service.Root.id, options),
     files: {
       // @ts-ignore - TODO: fix after https://github.com/ipfs/js-ipfs/issues/3594
-      ls: require('./core-api/files/ls')(grpc, service.MFS.ls, opts),
+      ls: require('./core-api/files/ls')(grpc, service.MFS.ls, options),
       // @ts-ignore - TODO: fix after https://github.com/ipfs/js-ipfs/issues/3594
-      write: require('./core-api/files/write')(grpc, service.MFS.write, opts)
+      write: require('./core-api/files/write')(grpc, service.MFS.write, options)
     }
   }
 
   return client
+}
+
+module.exports = {
+  create
 }

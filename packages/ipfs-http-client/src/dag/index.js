@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * @param {import("../lib/core").ClientOptions} config
+ * @param {import('../types').Options} config
  */
 module.exports = config => ({
   get: require('./get')(config),

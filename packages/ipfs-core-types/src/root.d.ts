@@ -116,6 +116,11 @@ export interface AddOptions extends AbortOptions {
    * Whether to preload all blocks created during this operation
    */
   preload?: boolean
+
+  /**
+   * How many blocks from a file to write concurrently
+   */
+  blockWriteConcurrency?: number
 }
 
 export interface AddAllOptions extends AddOptions {
@@ -132,6 +137,11 @@ export interface AddAllOptions extends AddOptions {
    * sharded directories. (Defaults to 1000)
    */
   shardSplitThreshold?: number
+
+  /**
+   * How many files to write concurrently
+   */
+  fileImportConcurrency?: number
 }
 
 export interface AddResult {

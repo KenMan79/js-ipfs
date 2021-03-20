@@ -31,6 +31,7 @@ export interface API<OptionExtension = {}> {
 
 export interface Config {
   Addresses: AddressConfig
+  API?: APIConfig,
   Profiles?: string
   Bootstrap: string[]
   Discovery: DiscoveryConfig
@@ -51,6 +52,10 @@ export interface AddressConfig {
   Delegates?: string[]
   Gateway?: string
   Swarm: string[]
+}
+
+export interface APIConfig {
+  HTTPHeaders?: Record<string, string>
 }
 
 export interface DiscoveryConfig {

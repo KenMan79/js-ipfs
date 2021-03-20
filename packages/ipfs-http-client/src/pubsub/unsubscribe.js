@@ -8,7 +8,7 @@ const SubscriptionTracker = require('./subscription-tracker')
  */
 
 /**
- * @param {import("../lib/core").ClientOptions} config
+ * @param {import('../types').Options} config
  */
 module.exports = config => {
   const subsTracker = SubscriptionTracker.singleton()

@@ -27,7 +27,7 @@ const {
 /**
  * @typedef {import('multihashes').HashName} HashName
  * @typedef {import('cids').CIDVersion} CIDVersion
- * @typedef {import('ipfs-core-types/src/basic').ToMTime} Mtime
+ * @typedef {import('ipfs-unixfs').MtimeLike} MtimeLike
  * @typedef {import('./').MfsContext} MfsContext
  * @typedef {import('./utils/to-mfs-path').FilePath} FilePath
  * @typedef {object} DefaultOptions
@@ -45,7 +45,7 @@ const {
  * @property {boolean} flush
  * @property {'raw' | 'file'} leafType
  * @property {number} shardSplitThreshold
- * @property {Mtime} [mtime]
+ * @property {MtimeLike} [mtime]
  * @property {number} [mode]
  * @property {AbortSignal} [signal]
  * @property {number} [timeout]

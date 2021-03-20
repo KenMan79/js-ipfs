@@ -2,6 +2,7 @@
 
 const pushable = require('it-pushable')
 const errCode = require('err-code')
+const toUrlString = require('ipfs-core-utils/src/to-url-string')
 const toHeaders = require('./to-headers')
 const transport = require('../grpc/transport')
 
@@ -37,6 +38,7 @@ module.exports = function bidiToDuplex (grpc, service, options) {
 
   const client = grpc.client(service, {
     ...options,
+    host: toUrlString(options.host),
     transport: transport({
       agent: options.agent
     })

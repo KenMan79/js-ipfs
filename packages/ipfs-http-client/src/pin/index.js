@@ -3,7 +3,7 @@
 const Remote = require('./remote')
 
 /**
- * @param {import("../lib/core").ClientOptions} config
+ * @param {import('../types').Options} config
  */
 module.exports = config => ({
   add: require('./add')(config),

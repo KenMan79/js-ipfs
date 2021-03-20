@@ -18,7 +18,7 @@ module.exports = ({ ipld, gcLock, preload }) => {
   async function rmLink (multihash, linkRef, options) {
     const node = await get(multihash, options)
     // @ts-ignore - loose input types
-    node.rmLink(linkRef.Name || linkRef.name)
+    node.rmLink(linkRef.Name || linkRef.name || linkRef)
     return put(node, options)
   }
 

@@ -18,7 +18,7 @@ const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
  * @typedef {import('multihashes').HashName} HashName
  * @typedef {import('cids')} CID
  * @typedef {import('cids').CIDVersion} CIDVersion
- * @typedef {import('ipfs-core-types/src/basic').ToMTime} Mtime
+ * @typedef {import('ipfs-unixfs').MtimeLike} MtimeLike
  * @typedef {import('./').MfsContext} MfsContext
  * @typedef {object} DefaultOptions
  * @property {boolean} parents
@@ -27,7 +27,7 @@ const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
  * @property {number} shardSplitThreshold
  * @property {boolean} flush
  * @property {number} [mode]
- * @property {Mtime} [mtime]
+ * @property {MtimeLike} [mtime]
  * @property {AbortSignal} [signal]
  * @property {number} [timeout]
  */

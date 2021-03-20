@@ -18,15 +18,16 @@ const DEFAULT_PORT = isBrowser || isWebWorker ? location.port : '5001'
  * @typedef {import('electron-fetch').Response} Response
  * @typedef {import('ipfs-utils/dist/types/electron-fetch').Request} Request
  * @typedef {import('ipfs-utils/src/types').HTTPOptions} HTTPOptions
+ * @typedef {import('../types').Options} Options
  */
 
 /**
- * @param {ClientOptions|URL|Multiaddr|string} [options]
- * @returns {ClientOptions}
+ * @param {Options|URL|Multiaddr|string} [options]
+ * @returns {Options}
  */
 const normalizeOptions = (options = {}) => {
   let url
-  /** @type {ClientOptions} */
+  /** @type {Options} */
   let opts = {}
   let agent
 
@@ -136,26 +137,9 @@ const parseTimeout = (value) => {
   return typeof value === 'string' ? parseDuration(value) : value
 }
 
-/**
- * @typedef {import('http').Agent} HttpAgent
- * @typedef {import('https').Agent} HttpsAgent
- *
- * @typedef {Object} ClientOptions
- * @property {string} [host]
- * @property {number} [port]
- * @property {string} [protocol]
- * @property {Headers|Record<string, string>} [headers] - Request headers.
- * @property {number|string} [timeout] - Amount of time until request should timeout in ms or humand readable. https://www.npmjs.com/package/parse-duration for valid string values.
- * @property {string} [apiPath] - Path to the API.
- * @property {URL|string|Multiaddr} [url] - Full API URL.
- * @property {object} [ipld]
- * @property {any[]} [ipld.formats] - An array of additional [IPLD formats](https://github.com/ipld/interface-ipld-format) to support
- * @property {(format: string) => Promise<any>} [ipld.loadFormat] - an async function that takes the name of an [IPLD format](https://github.com/ipld/interface-ipld-format) as a string and should return the implementation of that codec
- * @property {HttpAgent|HttpsAgent} [agent] - A [http.Agent](https://nodejs.org/api/http.html#http_class_http_agent) used to control connection persistence and reuse for HTTP clients (only supported in node.js)
- */
 class Client extends HTTP {
   /**
-   * @param {ClientOptions|URL|Multiaddr|string} [options]
+   * @param {Options|URL|Multiaddr|string} [options]
    */
   constructor (options = {}) {
     const opts = normalizeOptions(options)

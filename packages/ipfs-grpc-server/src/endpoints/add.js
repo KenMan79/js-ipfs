@@ -103,7 +103,7 @@ module.exports = function grpcAdd (ipfs, options = {}) {
             ...result,
             type: 'RESULT',
             cid: result.cid.toString(),
-            ...encodeMtime(result.unixfs?.mtime)
+            ...encodeMtime(result.mtime)
           })
         }
 

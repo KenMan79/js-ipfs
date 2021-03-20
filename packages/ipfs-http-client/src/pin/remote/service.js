@@ -4,7 +4,7 @@ const Client = require('../../lib/core')
 const toUrlSearchParams = require('../../lib/to-url-search-params')
 
 /**
- * @typedef {import('../../lib/core').ClientOptions} ClientOptions
+ * @typedef {import('../../types').Options} Options
  * @typedef {import('ipfs-core-types/src/basic').AbortOptions} AbortOptions
  * @typedef {import('ipfs-core-types/src/pin/remote/service').Credentials} Credentials
  * @typedef {import('ipfs-core-types/src/pin/remote/service').RemotePinService} RemotePinService
@@ -14,7 +14,7 @@ const toUrlSearchParams = require('../../lib/to-url-search-params')
  */
 class Service {
   /**
-   * @param {ClientOptions} options
+   * @param {Options} options
    */
   constructor (options) {
     this.client = new Client(options)

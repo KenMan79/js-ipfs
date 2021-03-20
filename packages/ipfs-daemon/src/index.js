@@ -4,10 +4,13 @@ const log = require('debug')('ipfs:daemon')
 const get = require('dlv')
 const set = require('just-safe-set')
 const Multiaddr = require('multiaddr')
+// @ts-ignore
 const WebRTCStar = require('libp2p-webrtc-star')
+// @ts-ignore
 const DelegatedPeerRouter = require('libp2p-delegated-peer-routing')
+// @ts-ignore
 const DelegatedContentRouter = require('libp2p-delegated-content-routing')
-const ipfsHttpClient = require('ipfs-http-client')
+const { create: ipfsHttpClient } = require('ipfs-http-client')
 const IPFS = require('ipfs-core')
 const HttpApi = require('ipfs-http-server')
 const HttpGateway = require('ipfs-http-gateway')
@@ -16,12 +19,16 @@ const createRepo = require('ipfs-core/src/runtime/repo-nodejs')
 const { isElectron } = require('ipfs-utils/src/env')
 
 class Daemon {
+  /**
+   * @param {import('ipfs-core').Options} options
+   */
   constructor (options = {}) {
     this._options = options
 
     if (process.env.IPFS_MONITORING) {
       // Setup debug metrics collection
       const prometheusClient = require('prom-client')
+      // @ts-ignore
       const prometheusGcStats = require('prometheus-gc-stats')
       const collectDefaultMetrics = prometheusClient.collectDefaultMetrics
       // @ts-ignore - timeout isn't in typedefs
@@ -39,7 +46,10 @@ class Daemon {
     log('starting')
 
     const repo = typeof this._options.repo === 'string' || this._options.repo == null
-      ? createRepo({ path: this._options.repo, autoMigrate: this._options.repoAutoMigrate, silent: this._options.silent })
+      ? createRepo(console.info, {
+        path: this._options.repo,
+        autoMigrate: Boolean(this._options.repoAutoMigrate)
+      })
       : this._options.repo
 
     // start the daemon
@@ -47,10 +57,11 @@ class Daemon {
     const ipfs = this._ipfs = await IPFS.create(ipfsOpts)
 
     // start HTTP servers (if API or Gateway is enabled in options)
-    const httpApi = new HttpApi(ipfs, ipfsOpts)
+    // @ts-ignore http api expects .libp2p and .ipld properties
+    const httpApi = new HttpApi(ipfs)
     this._httpApi = await httpApi.start()
 
-    const httpGateway = new HttpGateway(ipfs, ipfsOpts)
+    const httpGateway = new HttpGateway(ipfs)
     this._httpGateway = await httpGateway.start()
 
     // for the CLI to know the whereabouts of the API
@@ -60,7 +71,7 @@ class Daemon {
       await repo.apiAddr.set(this._httpApi._apiServers[0].info.ma)
     }
 
-    this._grpcServer = await gRPCServer(ipfs, ipfsOpts)
+    this._grpcServer = await gRPCServer(ipfs)
 
     log('started')
     return this
@@ -80,6 +91,9 @@ class Daemon {
   }
 }
 
+/**
+ * @type {import('ipfs-core/src/types').Libp2pFactoryFn}
+ */
 function getLibp2p ({ libp2pOptions, options, config, peerId }) {
   // Attempt to use any of the WebRTC versions available globally
   let electronWebRTC

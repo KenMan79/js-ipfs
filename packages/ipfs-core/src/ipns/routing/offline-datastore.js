@@ -18,6 +18,7 @@ class OfflineDatastore {
    */
   constructor (repo) {
     this._repo = repo
+    /** @type {any[]} */
     this.stores = []
   }
 
