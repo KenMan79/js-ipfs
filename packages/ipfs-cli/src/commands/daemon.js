@@ -2,6 +2,7 @@
 
 const os = require('os')
 const fs = require('fs')
+// @ts-ignore no types
 const toUri = require('multiaddr-to-uri')
 const { ipfsPathHelp } = require('../utils')
 const { isTest } = require('ipfs-utils/src/env')
@@ -12,6 +13,9 @@ module.exports = {
 
   describe: 'Start a long-running daemon process',
 
+  /**
+   * @param {import('yargs').Argv} yargs
+   */
   builder (yargs) {
     return yargs
       .epilog(ipfsPathHelp)
@@ -45,6 +49,19 @@ module.exports = {
       })
   },
 
+  /**
+   * @param {object} argv
+   * @param {import('../types').Context} argv.ctx
+   * @param {string} [argv.initConfig]
+   * @param {string[]} [argv.initProfile]
+   * @param {boolean} argv.enableShardingExperiment
+   * @param {boolean} argv.offline
+   * @param {boolean} argv.enableNamesysPubsub
+   * @param {boolean} argv.enablePreload
+   * @param {boolean} argv.silent
+   * @param {boolean} argv.migrate
+   * @param {string} argv.pass
+   */
   async handler (argv) {
     const { print, repoPath } = argv.ctx
     print('Initializing IPFS daemon...')
@@ -78,7 +95,7 @@ module.exports = {
         ipnsPubsub: argv.enableNamesysPubsub,
         sharding: argv.enableShardingExperiment
       },
-      init: argv.initProfile ? { profiles: argv.initProfile } : true
+      init: argv.initProfile ? { profiles: argv.initProfile } : undefined
     })
 
     try {

@@ -59,6 +59,11 @@ export interface PutOptions extends AbortOptions, PreloadOptions {
    * Pin this block when adding. (Defaults to `false`)
    */
   pin?: boolean
+
+  /**
+   * If true no blocks will be written to the underlying blockstore
+   */
+  onlyHash?: boolean
 }
 
 export interface RmOptions extends AbortOptions {

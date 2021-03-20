@@ -4,12 +4,20 @@ const mh = require('multihashing-async').multihash
 const multibase = require('multibase')
 const dagCBOR = require('ipld-dag-cbor')
 const dagPB = require('ipld-dag-pb')
-const concat = require('it-concat')
+const all = require('it-all')
+const uint8arrayConcat = require('uint8arrays/concat')
 const CID = require('cids')
 const { cidToString } = require('ipfs-core-utils/src/cid')
 const { default: parseDuration } = require('parse-duration')
 const uint8ArrayToString = require('uint8arrays/to-string')
 
+/**
+ * @typedef {'dag-cbor' | 'dag-pb' | 'raw'} SupportedFormat
+ */
+
+/**
+ * @type {Record<string, (buf: Uint8Array) => any>}
+ */
 const inputDecoders = {
   json: (buf) => JSON.parse(uint8ArrayToString(buf)),
   cbor: (buf) => dagCBOR.util.deserialize(buf),
@@ -17,6 +25,9 @@ const inputDecoders = {
   raw: (buf) => buf
 }
 
+/**
+ * @type {Record<string, SupportedFormat>}
+ */
 const formats = {
   cbor: 'dag-cbor',
   raw: 'raw',
@@ -86,6 +97,20 @@ module.exports = {
     }
   },
 
+  /**
+   * @param {object} argv
+   * @param {import('../../types').Context} argv.ctx
+   * @param {string} argv.data
+   * @param {'dag-cbor' | 'dag-pb' | 'raw' | 'cbor' | 'protobuf'} argv.format
+   * @param {'json' | 'cbor' | 'raw' | 'protobuf'} argv.inputEncoding
+   * @param {import('cids').CIDVersion} argv.cidVersion
+   * @param {boolean} argv.pin
+   * @param {import('multihashes').HashName} argv.hashAlg
+   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {boolean} argv.preload
+   * @param {boolean} argv.onlyHash
+   * @param {number} argv.timeout
+   */
   async handler ({ ctx: { ipfs, print, getStdin }, data, format, inputEncoding, pin, hashAlg, cidVersion, cidBase, preload, onlyHash, timeout }) {
     if (inputEncoding === 'cbor') {
       format = 'dag-cbor'
@@ -99,11 +124,12 @@ module.exports = {
       cidVersion = 1
     }
 
+    /** @type {string | Uint8Array} */
     let source = data
 
     if (!source) {
       // pipe from stdin
-      source = (await concat(getStdin())).slice()
+      source = uint8arrayConcat(await all(getStdin()))
     } else {
       source = Buffer.from(source)
     }
@@ -130,6 +156,10 @@ module.exports = {
   }
 }
 
+/**
+ * @param {any} obj
+ * @returns {any}
+ */
 function objectSlashToCID (obj) {
   if (Array.isArray(obj)) {
     return obj.map(objectSlashToCID)

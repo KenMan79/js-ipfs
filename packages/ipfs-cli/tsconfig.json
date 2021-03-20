@@ -4,11 +4,15 @@
     "outDir": "dist"
   },
   "include": [
-    "src"
+    "src",
+    "package.json"
   ],
   "references": [
     {
       "path": "../ipfs-core"
+    },
+    {
+      "path": "../ipfs-core-types"
     },
     {
       "path": "../ipfs-core-utils"

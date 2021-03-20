@@ -5,7 +5,7 @@ import type CID from 'cids'
 
 export interface API<OptionExtension = {}> {
   findPeer: (peerId: PeerId, options?: AbortOptions & OptionExtension) => Promise<PeerResult>
-  findProvs: (cid: CID, options?: DHTFindProvsOptions & OptionExtension) => Promise<PeerResult>
+  findProvs: (cid: CID, options?: DHTFindProvsOptions & OptionExtension) => AsyncIterable<PeerResult>
   get: (key: Uint8Array, options?: AbortOptions & OptionExtension) => Promise<Uint8Array>
   provide: (cid: CID | CID[], options?: DHTProvideOptions & OptionExtension) => AsyncIterable<DHTQueryMessage>
   put: (key: Uint8Array, value: Uint8Array, options?: AbortOptions & OptionExtension) => AsyncIterable<DHTQueryMessage>

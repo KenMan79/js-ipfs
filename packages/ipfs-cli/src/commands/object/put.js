@@ -1,7 +1,8 @@
 'use strict'
 
 const fs = require('fs')
-const concat = require('it-concat')
+const all = require('it-all')
+const uint8arrayConcat = require('uint8arrays/concat')
 const multibase = require('multibase')
 const { cidToString } = require('ipfs-core-utils/src/cid')
 const { default: parseDuration } = require('parse-duration')
@@ -27,14 +28,24 @@ module.exports = {
     }
   },
 
+  /**
+   * @param {object} argv
+   * @param {import('../../types').Context} argv.ctx
+   * @param {string} argv.data
+   * @param {import('ipfs-core-types/src/object').PutEncoding} argv.inputEnc
+   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {number} argv.timeout
+   */
   async handler ({ ctx: { ipfs, print, getStdin }, data, inputEnc, cidBase, timeout }) {
+    let buf
+
     if (data) {
-      data = fs.readFileSync(data)
+      buf = fs.readFileSync(data)
     } else {
-      data = (await concat(getStdin())).slice()
+      buf = uint8arrayConcat(await all(getStdin()))
     }
 
-    const cid = await ipfs.object.put(data, { enc: inputEnc, timeout })
+    const cid = await ipfs.object.put(buf, { enc: inputEnc, timeout })
     print(`added ${cidToString(cid, { base: cidBase, upgrade: false })}`)
   }
 }

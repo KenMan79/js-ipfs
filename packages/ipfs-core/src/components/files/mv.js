@@ -11,7 +11,6 @@ const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
  * @typedef {import('./').MfsContext} MfsContext
  * @typedef {object} DefaultOptions
  * @property {boolean} parents
- * @property {boolean} recursive
  * @property {boolean} flush
  * @property {CIDVersion} cidVersion
  * @property {HashName} hashAlg
@@ -25,7 +24,6 @@ const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
  */
 const defaultOptions = {
   parents: false,
-  recursive: false,
   flush: true,
   cidVersion: 0,
   hashAlg: 'sha2-256',

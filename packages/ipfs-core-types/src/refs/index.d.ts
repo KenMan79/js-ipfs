@@ -20,5 +20,5 @@ export type Local<OptionExtension = {}> = (options?: AbortOptions & OptionExtens
 
 export interface RefsResult {
   ref: string
-  error?: Error
+  err?: Error
 }

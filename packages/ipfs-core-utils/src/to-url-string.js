@@ -1,7 +1,7 @@
 'use strict'
 
 const multiaddr = require('multiaddr')
-// @ts-ignore
+// @ts-ignore no types
 const multiAddrToUri = require('multiaddr-to-uri')
 
 /**

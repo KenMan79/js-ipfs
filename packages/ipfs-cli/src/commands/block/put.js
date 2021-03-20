@@ -2,7 +2,8 @@
 
 const fs = require('fs')
 const multibase = require('multibase')
-const concat = require('it-concat')
+const all = require('it-all')
+const uint8arrayConcat = require('uint8arrays/concat')
 const { cidToString } = require('ipfs-core-utils/src/cid')
 const { default: parseDuration } = require('parse-duration')
 
@@ -46,13 +47,25 @@ module.exports = {
     }
   },
 
+  /**
+   * @param {object} argv
+   * @param {import('../../types').Context} argv.ctx
+   * @param {string} argv.block
+   * @param {import('multicodec').CodecName} argv.format
+   * @param {import('multihashes').HashName} argv.mhtype
+   * @param {number} argv.mhlen
+   * @param {import('cids').CIDVersion} argv.version
+   * @param {boolean} argv.pin
+   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {number} argv.timeout
+   */
   async handler ({ ctx: { ipfs, print, getStdin }, block, timeout, format, mhtype, mhlen, version, cidBase, pin }) {
     let data
 
     if (block) {
       data = fs.readFileSync(block)
     } else {
-      data = (await concat(getStdin())).slice()
+      data = uint8arrayConcat(await all(getStdin()))
     }
 
     const { cid } = await ipfs.block.put(data, {

@@ -4,6 +4,7 @@ import CID, { CIDVersion } from 'cids'
 import { CodecName } from 'multicodec'
 import { HashName } from 'multihashes'
 import { Mtime } from 'ipfs-unixfs'
+import type { AddProgressFn } from '../root'
 
 export interface API<OptionExtension = {}> {
   chmod: (path: string, mode: number | string, options?: ChmodOptions & OptionExtension) => Promise<void>
@@ -324,6 +325,11 @@ export interface WriteOptions extends MFSOptions, AbortOptions {
    * What sort of DAG structure to create
    */
   strategy?: 'balanced' | 'trickle'
+
+  /**
+   * Callback to be notified of write progress
+   */
+  progress?: AddProgressFn
 }
 
 export interface MvOptions extends MFSOptions, AbortOptions {

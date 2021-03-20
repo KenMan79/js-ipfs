@@ -46,7 +46,7 @@ class Daemon {
     log('starting')
 
     const repo = typeof this._options.repo === 'string' || this._options.repo == null
-      ? createRepo(console.info, {
+      ? createRepo(console.info, { // eslint-disable-line no-console
         path: this._options.repo,
         autoMigrate: Boolean(this._options.repoAutoMigrate)
       })

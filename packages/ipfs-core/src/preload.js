@@ -1,6 +1,6 @@
 'use strict'
 
-// @ts-ignore
+// @ts-ignore no types
 const toUri = require('multiaddr-to-uri')
 const debug = require('debug')
 const CID = require('cids')

@@ -14,11 +14,13 @@
     "dist"
   ],
   "main": "src/index.js",
+  "types": "dist/src/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ipfs/js-ipfs.git"
   },
   "scripts": {
+    "prepare": "aegir build --no-bundle",
     "lint": "aegir lint",
     "test": "npm run test:node",
     "test:node": "aegir test -t node",
@@ -36,6 +38,7 @@
     "execa": "^5.0.0",
     "get-folder-size": "^2.0.1",
     "ipfs-core": "^0.5.4",
+    "ipfs-core-types": "^0.3.1",
     "ipfs-core-utils": "^0.7.2",
     "ipfs-daemon": "^0.5.4",
     "ipfs-http-client": "^49.0.4",
@@ -65,6 +68,8 @@
     "yargs": "^16.0.3"
   },
   "devDependencies": {
+    "@types/get-folder-size": "^2.0.0",
+    "@types/progress": "^2.0.3",
     "@types/yargs": "^16.0.0",
     "aegir": "^32.1.0",
     "nanoid": "^3.1.12",
