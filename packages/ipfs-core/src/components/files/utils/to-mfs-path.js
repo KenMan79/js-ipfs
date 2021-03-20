@@ -136,6 +136,7 @@ const toMfsPath = async (context, path, options) => {
     output = {
       type: 'ipfs',
       depth: pathComponents.length - 2,
+      entryType: 'file',
 
       mfsPath: `/${pathComponents.join('/')}`,
       mfsDirectory,
@@ -151,6 +152,7 @@ const toMfsPath = async (context, path, options) => {
     output = {
       type: 'mfs',
       depth: pathComponents.length,
+      entryType: 'file',
 
       mfsDirectory,
       mfsPath,

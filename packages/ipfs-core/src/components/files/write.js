@@ -30,6 +30,7 @@ const {
  * @typedef {import('ipfs-unixfs').MtimeLike} MtimeLike
  * @typedef {import('./').MfsContext} MfsContext
  * @typedef {import('./utils/to-mfs-path').FilePath} FilePath
+ * @typedef {import('./utils/to-mfs-path').MfsPath} MfsPath
  * @typedef {object} DefaultOptions
  * @property {number} offset
  * @property {number} length
@@ -82,7 +83,12 @@ module.exports = (context) => {
     /** @type {DefaultOptions} */
     const options = mergeOptions(defaultOptions, opts)
 
-    let source, destination, parent
+    /** @type {AsyncIterable<Uint8Array>} */
+    let source
+    /** @type {MfsPath} */
+    let destination
+    /** @type {MfsPath} */
+    let parent
     log('Reading source, destination and parent')
     await createLock().readLock(async () => {
       source = await toAsyncIterator(content)
@@ -95,20 +101,20 @@ module.exports = (context) => {
       throw errCode(new Error('directory does not exist'), 'ERR_NO_EXIST')
     }
 
-    if (!source) {
+    // @ts-ignore
+    if (source == null) {
       throw errCode(new Error('could not create source'), 'ERR_NO_SOURCE')
     }
 
-    if (!destination) {
+    // @ts-ignore
+    if (destination == null) {
       throw errCode(new Error('could not create destination'), 'ERR_NO_DESTINATION')
     }
 
-    // @ts-ignore - destination may be never
     if (!options.create && !destination.exists) {
       throw errCode(new Error('file does not exist'), 'ERR_NO_EXIST')
     }
 
-    // @ts-ignore - destination may be never
     if (destination.entryType !== 'file') {
       throw errCode(new Error('not a file'), 'ERR_NOT_A_FILE')
     }
