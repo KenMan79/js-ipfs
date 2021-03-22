@@ -46,7 +46,7 @@
     "ipld-dag-cbor": "^0.18.0",
     "ipld-dag-pb": "^0.22.0",
     "it-all": "^1.0.4",
-    "it-concat": "achingbrain/it-concat#fix/concat-buffers-as-buffers",
+    "it-concat": "^1.0.3",
     "it-first": "^1.0.4",
     "it-glob": "0.0.11",
     "it-pipe": "^1.1.0",
