@@ -27,12 +27,15 @@ module.exports = {
    * @param {import('multiaddr')} argv.address
    * @param {number} argv.timeout
    */
-  async handler ({ ctx: { ipfs, isDaemon }, address, timeout }) {
+  async handler ({ ctx: { ipfs, isDaemon, print }, address, timeout }) {
     if (!isDaemon) {
       throw new Error('This command must be run in online mode. Try running \'ipfs daemon\' first.')
     }
+
     await ipfs.swarm.connect(address, {
       timeout
     })
+
+    print(`${address}`)
   }
 }

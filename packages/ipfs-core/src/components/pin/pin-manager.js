@@ -6,11 +6,8 @@ const errCode = require('err-code')
 // @ts-ignore - no types
 const dagCborLinks = require('dag-cbor-links')
 const debug = require('debug')
-// const parallelBatch = require('it-parallel-batch')
 const first = require('it-first')
 const all = require('it-all')
-// @ts-ignore
-// TODO: cborg has no main in package.json
 const cborg = require('cborg')
 const multibase = require('multibase')
 const multicodec = require('multicodec')

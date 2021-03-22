@@ -12,6 +12,7 @@ const CID = require('cids')
 const PeerId = require('peer-id')
 const Multiaddr = require('multiaddr')
 const { cidToString } = require('ipfs-core-utils/src/cid')
+const uint8ArrayFromString = require('uint8arrays/from-string')
 
 const getRepoPath = () => {
   return process.env.IPFS_PATH || path.join(os.homedir(), '/.jsipfs')
@@ -279,6 +280,17 @@ const coerceMultiaddrs = (values) => {
   return values.map(coerceMultiaddr).filter(Boolean)
 }
 
+/**
+ * @param {string} value
+ */
+const coerceUint8Array = (value) => {
+  if (value == null) {
+    return undefined
+  }
+
+  return uint8ArrayFromString(value)
+}
+
 const DEL = 127
 
 /**
@@ -393,6 +405,7 @@ module.exports = {
   coerceMultiaddr,
   coerceMultiaddrs,
   coercePeerId,
+  coerceUint8Array,
   stripControlCharacters,
   escapeControlCharacters,
   makeEntriesPrintable

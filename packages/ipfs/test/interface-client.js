@@ -8,7 +8,7 @@ const factory = require('./utils/factory')
 describe('interface-ipfs-core ipfs-client tests', () => {
   const commonFactory = factory({
     type: 'js',
-    ipfsClientModule: require('ipfs-client').create
+    ipfsClientModule: require('ipfs-client')
   })
 
   tests.files(commonFactory, {

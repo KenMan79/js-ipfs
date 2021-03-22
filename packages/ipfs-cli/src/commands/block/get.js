@@ -2,6 +2,7 @@
 
 const { default: parseDuration } = require('parse-duration')
 const uint8ArrayToString = require('uint8arrays/to-string')
+const { coerceCID } = require('../../utils')
 
 module.exports = {
   command: 'get <key>',
@@ -9,6 +10,10 @@ module.exports = {
   describe: 'Get a raw IPFS block',
 
   builder: {
+    key: {
+      type: 'string',
+      coerce: coerceCID
+    },
     timeout: {
       type: 'string',
       coerce: parseDuration

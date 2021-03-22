@@ -12,14 +12,12 @@ module.exports = configure(api => {
   /**
    * @type {SwarmAPI["connect"]}
    */
-  async function connect (addrs, options = {}) {
-    addrs = Array.isArray(addrs) ? addrs : [addrs]
-
+  async function connect (addr, options = {}) {
     const res = await api.post('swarm/connect', {
       timeout: options.timeout,
       signal: options.signal,
       searchParams: toUrlSearchParams({
-        arg: addrs.map(addr => `${addr}`),
+        arg: addr,
         ...options
       }),
       headers: options.headers

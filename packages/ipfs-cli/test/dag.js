@@ -52,7 +52,7 @@ describe('dag', () => {
           Links: [{
             Hash: dagCborCid,
             Name: 'foo',
-            Size: 10
+            Tsize: 10
           }]
         }
       }
@@ -71,7 +71,7 @@ describe('dag', () => {
           Links: [{
             Hash: dagCborCid,
             Name: 'foo',
-            Size: 10
+            Tsize: 10
           }]
         }
       }
@@ -90,7 +90,7 @@ describe('dag', () => {
           Links: [{
             Hash: dagCborCid,
             Name: 'foo',
-            Size: 10
+            Tsize: 10
           }]
         }
       }
@@ -216,7 +216,7 @@ describe('dag', () => {
           Links: [{
             Hash: dagPbCid,
             Name: 'foo\b\n\t.txt',
-            Size: 9000
+            Tsize: 9000
           }]
         }
       }
@@ -360,7 +360,7 @@ describe('dag', () => {
     })
 
     it('puts piped raw node', async () => {
-      ipfs.dag.put.withArgs(Buffer.alloc(10), {
+      ipfs.dag.put.withArgs(new Uint8Array(10), {
         ...defaultOptions,
         format: 'raw'
       }).resolves(new CID(rawCid))

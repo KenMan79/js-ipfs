@@ -241,7 +241,6 @@ class HttpApi {
       stopServers(this._apiServers)
     ])
     this._log('stopped')
-    return this
   }
 }
 

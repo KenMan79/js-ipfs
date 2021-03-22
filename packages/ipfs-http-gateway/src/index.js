@@ -122,7 +122,6 @@ class HttpGateway {
       stopServers(this._gatewayServers)
     ])
     this._log('stopped')
-    return this
   }
 }
 

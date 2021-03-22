@@ -6,7 +6,7 @@ const { isNode, isBrowser } = require('ipfs-utils/src/env')
 const commonOptions = {
   test: true,
   type: 'proc',
-  ipfsHttpModule: require('ipfs-http-client').create,
+  ipfsHttpModule: require('ipfs-http-client'),
   ipfsModule: require('ipfs-core'),
   ipfsOptions: {
     pass: 'ipfs-is-awesome-software',

@@ -101,7 +101,7 @@ module.exports = {
 
     for await (const link of ipfs.ls(key, { recursive, timeout })) {
       const mode = link.mode != null ? formatMode(link.mode, link.type === 'dir') : ''
-      const mtime = link.mtime != null ? formatMtime(link.mtime) : ''
+      const mtime = link.mtime != null ? formatMtime(link.mtime) : '-'
       const cid = cidToString(link.cid, { base: cidBase })
       const size = link.size ? String(link.size) : '-'
       const name = stripControlCharacters(link.type === 'dir' ? `${link.name || ''}/` : link.name)

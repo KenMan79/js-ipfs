@@ -39,8 +39,6 @@ class Daemon {
 
   /**
    * Starts the IPFS HTTP server
-   *
-   * @returns {Promise<Daemon>} - A promise that resolves to a Daemon instance
    */
   async start () {
     log('starting')
@@ -54,14 +52,14 @@ class Daemon {
 
     // start the daemon
     const ipfsOpts = Object.assign({}, { start: true, libp2p: getLibp2p }, this._options, { repo })
-    const ipfs = this._ipfs = await IPFS.create(ipfsOpts)
+    this._ipfs = await IPFS.create(ipfsOpts)
 
     // start HTTP servers (if API or Gateway is enabled in options)
     // @ts-ignore http api expects .libp2p and .ipld properties
-    const httpApi = new HttpApi(ipfs)
+    const httpApi = new HttpApi(this._ipfs)
     this._httpApi = await httpApi.start()
 
-    const httpGateway = new HttpGateway(ipfs)
+    const httpGateway = new HttpGateway(this._ipfs)
     this._httpGateway = await httpGateway.start()
 
     // for the CLI to know the whereabouts of the API
@@ -71,23 +69,22 @@ class Daemon {
       await repo.apiAddr.set(this._httpApi._apiServers[0].info.ma)
     }
 
-    this._grpcServer = await gRPCServer(ipfs)
+    this._grpcServer = await gRPCServer(this._ipfs)
 
     log('started')
-    return this
   }
 
   async stop () {
     log('stopping')
+
     await Promise.all([
       this._httpApi && this._httpApi.stop(),
       this._httpGateway && this._httpGateway.stop(),
       this._grpcServer && this._grpcServer.stop(),
-      // @ts-ignore - may not have stop if init was false
       this._ipfs && this._ipfs.stop()
     ])
+
     log('stopped')
-    return this
   }
 }
 

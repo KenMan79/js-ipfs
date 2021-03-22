@@ -15,7 +15,7 @@
     "human-crypto-keys": "^0.1.4",
     "ipfs": "^0.54.4",
     "ipfs-http-client": "^49.0.4",
-    "ipfs-utils": "^6.0.1",
+    "ipfs-utils": "ipfs/js-ipfs-utils#fix/allow-more-mtime-types",
     "ipns": "^0.10.0",
     "it-last": "^1.0.4",
     "p-retry": "^4.2.0",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "delay": "^4.4.0",
     "execa": "^5.0.0",
-    "ipfsd-ctl": "^7.2.0",
+    "ipfsd-ctl": "ipfs/js-ipfsd-ctl#chore/switch-to-create-for-http-client",
     "go-ipfs": "0.8.0",
     "parcel-bundler": "^1.12.4",
     "path": "^0.12.7",

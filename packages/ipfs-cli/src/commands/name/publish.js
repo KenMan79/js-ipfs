@@ -2,8 +2,7 @@
 
 const { default: parseDuration } = require('parse-duration')
 const {
-  stripControlCharacters,
-  coerceCID
+  stripControlCharacters
 } = require('../../utils')
 
 module.exports = {
@@ -13,8 +12,7 @@ module.exports = {
 
   builder: {
     ipfsPath: {
-      type: 'string',
-      coerce: coerceCID
+      type: 'string'
     },
     resolve: {
       alias: 'r',

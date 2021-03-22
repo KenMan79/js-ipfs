@@ -14,11 +14,6 @@ const esbuild = {
         build.onResolve({ filter: /^stream$/ }, () => {
           return { path: require.resolve('readable-stream') }
         })
-
-        // TODO: remove me when the main/exports problem is resolved
-        build.onResolve({ filter: /^cborg$/ }, () => {
-          return { path: require.resolve('cborg') }
-        })
       }
     }
   ]
@@ -43,7 +38,7 @@ module.exports = {
         }, {
           type: 'js',
           ipfsModule: require(__dirname),
-          ipfsHttpModule: require(path.join(__dirname, '..', 'ipfs-http-client')).create,
+          ipfsHttpModule: require(path.join(__dirname, '..', 'ipfs-http-client')),
           ipfsBin: path.resolve(path.join(__dirname, '..', 'ipfs', 'src', 'cli.js')),
           ipfsOptions: {
             libp2p: {

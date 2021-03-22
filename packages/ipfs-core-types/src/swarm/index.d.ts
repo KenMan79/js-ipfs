@@ -8,8 +8,8 @@ import type Multiaddr from 'multiaddr'
 
 export interface API<OptionExtension = {}> {
   addrs: (options?: AbortOptions & OptionExtension) => Promise<AddrsResult[]>
-  connect: (addr: Multiaddr | Multiaddr[], options?: AbortOptions & OptionExtension) => Promise<void>
-  disconnect: (addr: Multiaddr | Multiaddr[], options?: AbortOptions & OptionExtension) => Promise<void>
+  connect: (addr: Multiaddr, options?: AbortOptions & OptionExtension) => Promise<void>
+  disconnect: (addr: Multiaddr, options?: AbortOptions & OptionExtension) => Promise<void>
   localAddrs: (options?: AbortOptions & OptionExtension) => Promise<Multiaddr[]>
   peers: (options?: PeersOptions & OptionExtension) => Promise<PeersResult[]>
 }
@@ -26,16 +26,11 @@ export interface PeersOptions extends AbortOptions {
   latency?: boolean
 }
 
-export enum PeerDirection {
-  Inbound = 0,
-  Outbound
-}
-
 export interface PeersResult {
   addr: Multiaddr
   peer: string
   latency?: string
   muxer?: string
   streams?: string[]
-  direction?: PeerDirection
+  direction?: 'inbound' | 'outbound'
 }

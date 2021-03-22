@@ -281,12 +281,11 @@ module.exports = {
       options.rawLeaves = cidVersion > 0
     }
 
-    /** @type {Date | undefined} */
+    /** @type {{ secs: number, nsecs?: number } | undefined} */
     let date
 
     if (mtime) {
-      // FIXME: nsecs are ignored
-      date = new Date(mtime * 1000)
+      date = { secs: mtime, nsecs: mtimeNsecs }
     }
 
     const source = file

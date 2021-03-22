@@ -16,7 +16,7 @@ module.exports = {
         port: port
       }, {
         type: 'go',
-        ipfsHttpModule: require('./').create,
+        ipfsHttpModule: require('./'),
         ipfsBin: require('go-ipfs').path()
       })
 

@@ -25,7 +25,7 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "aegir build",
-    "test": "aegir test",
+    "test": "echo please run test:interface:client in the ipfs package instead",
     "lint": "aegir lint",
     "coverage": "npx nyc -r html npm run test:node -- --bail",
     "clean": "rimraf ./dist",

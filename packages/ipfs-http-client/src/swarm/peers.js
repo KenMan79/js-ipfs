@@ -25,27 +25,14 @@ module.exports = configure(api => {
     const { Peers } = await res.json()
 
     return (Peers || []).map(peer => {
-      const info = {}
-      try {
-        info.addr = multiaddr(peer.Addr)
-        info.peer = peer.Peer
-      } catch (error) {
-        info.error = error
-        info.rawPeerInfo = peer
+      return {
+        addr: multiaddr(peer.Addr),
+        peer: peer.Peer,
+        muxer: peer.Muxer,
+        latency: peer.Latency,
+        streams: peer.Streams,
+        direction: peer.Direction == null ? undefined : peer.Direction === 0 ? 'inbound' : 'outbound'
       }
-      if (peer.Muxer) {
-        info.muxer = peer.Muxer
-      }
-      if (peer.Latency) {
-        info.latency = peer.Latency
-      }
-      if (peer.Streams) {
-        info.streams = peer.Streams
-      }
-      if (peer.Direction != null) {
-        info.direction = peer.Direction
-      }
-      return info
     })
   }
   return peers

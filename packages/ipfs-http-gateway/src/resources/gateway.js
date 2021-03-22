@@ -29,17 +29,19 @@ module.exports = {
    */
   async handler (request, h) {
     const { ipfs } = request.server.app
-    let path = request.path
+    const path = request.path
+
+    let ipfsPath = path
 
     if (path.startsWith('/ipns/')) {
-      path = await last(ipfs.name.resolve(path, { recursive: true })) || path
+      ipfsPath = await last(ipfs.name.resolve(path, { recursive: true })) || path
     }
 
     // The resolver from ipfs-http-response supports only immutable /ipfs/ for now,
     // so we convert /ipns/ to /ipfs/ before passing it to the resolver ¯\_(ツ)_/¯
     // This could be removed if a solution proposed in
     //  https://github.com/ipfs/js-ipfs-http-response/issues/22 lands upstream
-    let ipfsPath = decodeURI(path)
+    ipfsPath = decodeURI(ipfsPath)
 
     let directory = false
     let data

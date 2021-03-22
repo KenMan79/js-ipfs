@@ -23,6 +23,7 @@ module.exports = ({ network }) => {
         }
 
         if (options.verbose || options.direction) {
+          // @ts-ignore https://github.com/libp2p/js-libp2p-interfaces/pull/86
           peer.direction = connection.stat.direction
         }
 
