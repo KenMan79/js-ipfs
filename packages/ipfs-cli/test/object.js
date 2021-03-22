@@ -185,7 +185,7 @@ describe('object', () => {
     })
 
     it('put from pipe', async () => {
-      const buf = uint8ArrayFromString('hello world')
+      const buf = Buffer.from('hello world')
 
       ipfs.object.put.withArgs(buf, defaultOptions).resolves(cid)
 
@@ -377,7 +377,7 @@ describe('object', () => {
       })
 
       it('append data from pipe', async () => {
-        const buf = uint8ArrayFromString('hello world')
+        const buf = Buffer.from('hello world')
 
         ipfs.object.patch.appendData.withArgs(cid, buf, defaultOptions).resolves(
           cid
@@ -438,7 +438,7 @@ describe('object', () => {
       })
 
       it('set-data from pipe', async () => {
-        const buf = uint8ArrayFromString('hello world')
+        const buf = Buffer.from('hello world')
 
         ipfs.object.patch.setData.withArgs(cid, buf, defaultOptions).resolves(
           cid

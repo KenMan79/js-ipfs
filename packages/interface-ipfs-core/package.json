@@ -57,7 +57,7 @@
     "iso-random-stream": "^1.1.1",
     "it-all": "^1.0.4",
     "it-buffer-stream": "^2.0.0",
-    "it-concat": "^1.0.1",
+    "it-concat": "achingbrain/it-concat#fix/concat-buffers-as-buffers",
     "it-drain": "^1.0.3",
     "it-first": "^1.0.4",
     "it-last": "^1.0.4",

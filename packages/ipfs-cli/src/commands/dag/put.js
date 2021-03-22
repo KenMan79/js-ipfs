@@ -8,17 +8,16 @@ const concat = require('it-concat')
 const CID = require('cids')
 const { cidToString } = require('ipfs-core-utils/src/cid')
 const { default: parseDuration } = require('parse-duration')
-const uint8ArrayToString = require('uint8arrays/to-string')
 
 /**
  * @typedef {'dag-cbor' | 'dag-pb' | 'raw'} SupportedFormat
  */
 
 /**
- * @type {Record<string, (buf: Uint8Array) => any>}
+ * @type {Record<string, (buf: Buffer) => any>}
  */
 const inputDecoders = {
-  json: (buf) => JSON.parse(uint8ArrayToString(buf)),
+  json: (buf) => JSON.parse(buf.toString()),
   cbor: (buf) => dagCBOR.util.deserialize(buf),
   protobuf: (buf) => dagPB.util.deserialize(buf),
   raw: (buf) => buf
@@ -123,14 +122,14 @@ module.exports = {
       cidVersion = 1
     }
 
-    /** @type {string | Uint8Array} */
-    let source = data
+    /** @type {Buffer} */
+    let source
 
-    if (!source) {
+    if (!data) {
       // pipe from stdin
       source = (await concat(getStdin(), { type: 'buffer' })).slice()
     } else {
-      source = Buffer.from(source)
+      source = Buffer.from(data)
     }
 
     source = inputDecoders[inputEncoding](source)

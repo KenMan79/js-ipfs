@@ -340,7 +340,7 @@ describe('dag', () => {
 
       const out = await cli('dag put', {
         getStdin: function * () {
-          yield uint8ArrayFromString('{}')
+          yield Buffer.from('{}')
         },
         ipfs
       })
@@ -360,7 +360,7 @@ describe('dag', () => {
     })
 
     it('puts piped raw node', async () => {
-      ipfs.dag.put.withArgs(new Uint8Array(10), {
+      ipfs.dag.put.withArgs(Buffer.alloc(10), {
         ...defaultOptions,
         format: 'raw'
       }).resolves(new CID(rawCid))
