@@ -10,7 +10,7 @@ export interface Context {
   ipfs: IPFS
   print: Print
   isDaemon: boolean
-  getStdin: () => AsyncIterable<Uint8Array>
+  getStdin: () => AsyncIterable<Buffer>
   repoPath: string
 }
 

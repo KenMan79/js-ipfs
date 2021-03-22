@@ -2,8 +2,7 @@
 
 const fs = require('fs')
 const multibase = require('multibase')
-const all = require('it-all')
-const uint8arrayConcat = require('uint8arrays/concat')
+const concat = require('it-concat')
 const { cidToString } = require('ipfs-core-utils/src/cid')
 const { default: parseDuration } = require('parse-duration')
 
@@ -65,7 +64,7 @@ module.exports = {
     if (block) {
       data = fs.readFileSync(block)
     } else {
-      data = uint8arrayConcat(await all(getStdin()))
+      data = (await concat(getStdin(), { type: 'buffer' })).slice()
     }
 
     const { cid } = await ipfs.block.put(data, {

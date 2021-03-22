@@ -1,8 +1,7 @@
 'use strict'
 
 const fs = require('fs')
-const all = require('it-all')
-const uint8arrayConcat = require('uint8arrays/concat')
+const concat = require('it-concat')
 const multibase = require('multibase')
 const { cidToString } = require('ipfs-core-utils/src/cid')
 const { default: parseDuration } = require('parse-duration')
@@ -43,7 +42,7 @@ module.exports = {
     if (data) {
       buf = fs.readFileSync(data)
     } else {
-      buf = uint8arrayConcat(await all(getStdin()))
+      buf = (await concat(getStdin(), { type: 'buffer' })).slice()
     }
 
     const cid = await ipfs.object.patch.setData(root, buf, {

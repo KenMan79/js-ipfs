@@ -4,8 +4,7 @@ const mh = require('multihashing-async').multihash
 const multibase = require('multibase')
 const dagCBOR = require('ipld-dag-cbor')
 const dagPB = require('ipld-dag-pb')
-const all = require('it-all')
-const uint8arrayConcat = require('uint8arrays/concat')
+const concat = require('it-concat')
 const CID = require('cids')
 const { cidToString } = require('ipfs-core-utils/src/cid')
 const { default: parseDuration } = require('parse-duration')
@@ -129,7 +128,7 @@ module.exports = {
 
     if (!source) {
       // pipe from stdin
-      source = uint8arrayConcat(await all(getStdin()))
+      source = (await concat(getStdin(), { type: 'buffer' })).slice()
     } else {
       source = Buffer.from(source)
     }
