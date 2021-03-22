@@ -35,13 +35,12 @@
     "test:external": "aegir test-dependant",
     "coverage": "nyc --reporter=text --reporter=lcov npm run test:interface:core -- -t node",
     "clean": "rimraf ./dist",
-    "dep-check": "aegir dep-check"
+    "dep-check": "aegir dep-check -i ipfs-core-types -i @types/*"
   },
   "dependencies": {
     "debug": "^4.1.1",
     "ipfs-cli": "^0.4.4",
     "ipfs-core": "^0.5.4",
-    "ipfs-repo": "^9.0.0",
     "semver": "^7.3.2",
     "update-notifier": "^5.0.0"
   },

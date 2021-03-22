@@ -34,7 +34,7 @@
     "lint": "aegir lint",
     "coverage": "npx nyc -r html npm run test:node -- --bail",
     "clean": "rimraf ./dist",
-    "dep-check": "aegir dep-check -i rimraf"
+    "dep-check": "aegir dep-check -i rimraf -i ipfs-core-types"
   },
   "dependencies": {
     "ipfs-message-port-protocol": "^0.6.1",

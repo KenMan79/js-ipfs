@@ -37,7 +37,7 @@
     "test:node": "aegir test -t node",
     "coverage": "nyc --reporter=text --reporter=lcov npm run test:node",
     "clean": "rimraf ./dist",
-    "dep-check": "aegir dep-check -i rimraf"
+    "dep-check": "aegir dep-check -i rimraf -i ipfs-core-types"
   },
   "dependencies": {
     "@hapi/ammo": "^5.0.1",
