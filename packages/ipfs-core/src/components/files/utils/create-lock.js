@@ -5,8 +5,8 @@ const mortice = require('mortice')
 
 /**
  * @typedef {object} Lock
- * @property {import('ipfs-core-types/src/basic').HigherOrderFn} readLock
- * @property {import('ipfs-core-types/src/basic').HigherOrderFn} writeLock
+ * @property {(fn: (...args: any) => any) => (...args: any) => any} readLock
+ * @property {(fn: (...args: any) => any) => (...args: any) => any} writeLock
  */
 
 /** @type {Lock} */

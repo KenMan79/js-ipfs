@@ -4,9 +4,131 @@ import { CodecName } from 'multicodec'
 import { HashName } from 'multihashes'
 
 export interface API<OptionExtension = {}> {
+  /**
+   * Retrieve an IPLD format node
+   *
+   * @example
+   * ```js
+   * // example obj
+   * const obj = {
+   *   a: 1,
+   *   b: [1, 2, 3],
+   *   c: {
+   *     ca: [5, 6, 7],
+   *     cb: 'foo'
+   *   }
+   * }
+   *
+   * const cid = await ipfs.dag.put(obj, { format: 'dag-cbor', hashAlg: 'sha2-256' })
+   * console.log(cid.toString())
+   * // zdpuAmtur968yprkhG9N5Zxn6MFVoqAWBbhUAkNLJs2UtkTq5
+   *
+   * async function getAndLog(cid, path) {
+   *   const result = await ipfs.dag.get(cid, { path })
+   *   console.log(result.value)
+   * }
+   *
+   * await getAndLog(cid, '/a')
+   * // Logs:
+   * // 1
+   *
+   * await getAndLog(cid, '/b')
+   * // Logs:
+   * // [1, 2, 3]
+   *
+   * await getAndLog(cid, '/c')
+   * // Logs:
+   * // {
+   * //   ca: [5, 6, 7],
+   * //   cb: 'foo'
+   * // }
+   *
+   * await getAndLog(cid, '/c/ca/1')
+   * // Logs:
+   * // 6
+   * ```
+   */
   get: (cid: CID, options?: GetOptions & OptionExtension) => Promise<GetResult>
+
+  /**
+   * Store an IPLD format node
+   *
+   * @example
+   * ```js
+   * const obj = { simple: 'object' }
+   * const cid = await ipfs.dag.put(obj, { format: 'dag-cbor', hashAlg: 'sha3-512' })
+   *
+   * console.log(cid.toString())
+   * // zBwWX9ecx5F4X54WAjmFLErnBT6ByfNxStr5ovowTL7AhaUR98RWvXPS1V3HqV1qs3r5Ec5ocv7eCdbqYQREXNUfYNuKG
+   * ```
+   */
   put: (node: any, options?: PutOptions & OptionExtension) => Promise<CID>
+
+  /**
+   * Enumerate all the entries in a graph
+   *
+   * @example
+   * ```js
+   * // example obj
+   * const obj = {
+   *   a: 1,
+   *   b: [1, 2, 3],
+   *   c: {
+   *     ca: [5, 6, 7],
+   *     cb: 'foo'
+   *   }
+   * }
+   *
+   * const cid = await ipfs.dag.put(obj, { format: 'dag-cbor', hashAlg: 'sha2-256' })
+   * console.log(cid.toString())
+   * // zdpuAmtur968yprkhG9N5Zxn6MFVoqAWBbhUAkNLJs2UtkTq5
+   *
+   * const result = await ipfs.dag.tree('zdpuAmtur968yprkhG9N5Zxn6MFVoqAWBbhUAkNLJs2UtkTq5')
+   * console.log(result)
+   * // Logs:
+   * // a
+   * // b
+   * // b/0
+   * // b/1
+   * // b/2
+   * // c
+   * // c/ca
+   * // c/ca/0
+   * // c/ca/1
+   * // c/ca/2
+   * // c/cb
+   * ```
+   */
   tree: (cid: CID, options?: TreeOptions & OptionExtension) => Promise<string[]>
+
+  /**
+   * Returns the CID and remaining path of the node at the end of the passed IPFS path
+   *
+   * @example
+   * ```JavaScript
+   * // example obj
+   * const obj = {
+   *   a: 1,
+   *   b: [1, 2, 3],
+   *   c: {
+   *     ca: [5, 6, 7],
+   *     cb: 'foo'
+   *   }
+   * }
+   *
+   * const cid = await ipfs.dag.put(obj, { format: 'dag-cbor', hashAlg: 'sha2-256' })
+   * console.log(cid.toString())
+   * // bafyreicyer3d34cutdzlsbe2nqu5ye62mesuhwkcnl2ypdwpccrsecfmjq
+   *
+   * const result = await ipfs.dag.resolve(`${cid}/c/cb`)
+   * console.log(result)
+   * // Logs:
+   * // {
+   * //   cid: CID(bafyreicyer3d34cutdzlsbe2nqu5ye62mesuhwkcnl2ypdwpccrsecfmjq),
+   * //   remainderPath: 'c/cb'
+   * // }
+   * ```
+   */
   resolve: (ipfsPath: IPFSPath, options?: ResolveOptions & OptionExtension) => Promise<ResolveResult>
 }
 

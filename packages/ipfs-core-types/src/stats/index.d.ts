@@ -8,6 +8,10 @@ import type BigInteger from 'bignumber.js'
 export interface API<OptionExtension = {}> {
   bitswap: BitswapAPI<OptionExtension>["stat"]
   repo: RepoAPI<OptionExtension>["stat"]
+
+  /**
+   * Return bandwith usage stats
+   */
   bw: (options?: BWOptions & OptionExtension) => AsyncIterable<BWResult>
 }
 

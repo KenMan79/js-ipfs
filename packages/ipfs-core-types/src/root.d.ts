@@ -6,21 +6,137 @@ import type Multiaddr from 'multiaddr'
 import type { BaseName } from 'multibase'
 
 export interface API<OptionExtension = {}> {
+  /**
+   * Import a file or data into IPFS
+   */
   add: (entry: ToEntry, options?: AddOptions & OptionExtension) => Promise<AddResult>
+
+  /**
+   * Import multiple files and data into IPFS
+   */
   addAll: (source: ImportSource, options?: AddAllOptions & AbortOptions & OptionExtension) => AsyncIterable<AddResult>
+
+  /**
+   * Returns content of the file addressed by a valid IPFS Path or CID
+   */
   cat: (ipfsPath: IPFSPath, options?: CatOptions & OptionExtension) => AsyncIterable<Uint8Array>
+
+  /**
+   * Fetch a file or an entire directory tree from IPFS that is addressed by a
+   * valid IPFS Path
+   */
   get: (ipfsPath: IPFSPath, options?: GetOptions & OptionExtension) => AsyncIterable<IPFSEntry>
+
+  /**
+   * Lists a directory from IPFS that is addressed by a valid IPFS Path
+   */
   ls: (ipfsPath: IPFSPath, options?: ListOptions & OptionExtension) => AsyncIterable<IPFSEntry>
 
+  /**
+   * Returns the identity of the Peer
+   *
+   * @example
+   * ```js
+   * const identity = await ipfs.id()
+   * console.log(identity)
+   * ```
+   */
   id: (options?: AbortOptions & OptionExtension) => Promise<IDResult>
+
+  /**
+   * Returns the implementation version
+   *
+   * @example
+   * ```js
+   * const version = await ipfs.version()
+   * console.log(version)
+   * ```
+   */
   version: (options?: AbortOptions & OptionExtension) => Promise<VersionResult>
+
+  /**
+   * Resolve DNS links
+   */
   dns: (domain: string, options?: DNSOptions & OptionExtension) => Promise<string>
+
+  /**
+   * Start the node
+   */
   start: () => Promise<void>
+
+  /**
+   * Stop the node
+   */
   stop: (options?: AbortOptions & OptionExtension) => Promise<void>
+
+  /**
+   * Send echo request packets to IPFS hosts.
+   *
+   * @example
+   * ```js
+   * for await (const res of ipfs.ping('Qmhash')) {
+   *   if (res.time) {
+   *     console.log(`Pong received: time=${res.time} ms`)
+   *   } else {
+   *     console.log(res.text)
+   *   }
+   * }
+   * ```
+   */
   ping: (peerId: PeerId | CID, options?: PingOptions & OptionExtension) => AsyncIterable<PingResult>
+
+  /**
+   * Resolve the value of names to IPFS
+   *
+   * There are a number of mutable name protocols that can link among themselves
+   * and into IPNS. For example IPNS references can (currently) point at an IPFS
+   * object, and DNS links can point at other DNS links, IPNS entries, or IPFS
+   * objects. This command accepts any of these identifiers and resolves them
+   * to the referenced item.
+   *
+   * @example
+   * ```js
+   * // Resolve the value of your identity:
+   * const name = '/ipns/QmatmE9msSfkKxoffpHwNLNKgwZG8eT9Bud6YoPab52vpy'
+   *
+   * const res = await ipfs.resolve(name)
+   * console.log(res)
+   * // Logs: /ipfs/Qmcqtw8FfrVSBaRmbWwHxt3AuySBhJLcvmFYi3Lbc4xnwj
+   *
+   * // Resolve the value of another name recursively:
+   * const name = '/ipns/QmbCMUZw6JFeZ7Wp9jkzbye3Fzp2GGcPgC3nmeUjfVF87n'
+   *
+   * // Where:
+   * // /ipns/QmbCMUZw6JFeZ7Wp9jkzbye3Fzp2GGcPgC3nmeUjfVF87n
+   * // ...resolves to:
+   * // /ipns/QmatmE9msSfkKxoffpHwNLNKgwZG8eT9Bud6YoPab52vpy
+   * // ...which in turn resolves to:
+   * // /ipfs/Qmcqtw8FfrVSBaRmbWwHxt3AuySBhJLcvmFYi3Lbc4xnwj
+   *
+   * const res = await ipfs.resolve(name, { recursive: true })
+   * console.log(res)
+   * // Logs: /ipfs/Qmcqtw8FfrVSBaRmbWwHxt3AuySBhJLcvmFYi3Lbc4xnwj
+   *
+   * // Resolve the value of an IPFS path:
+   * const name = '/ipfs/QmeZy1fGbwgVSrqbfh9fKQrAWgeyRnj7h8fsHS1oy3k99x/beep/boop'
+   * const res = await ipfs.resolve(name)
+   * console.log(res)
+   * // Logs: /ipfs/QmYRMjyvAiHKN9UTi8Bzt1HUspmSRD8T8DwxfSMzLgBon1
+   * ```
+   */
   resolve: (name: string, options?: ResolveOptions & OptionExtension) => Promise<string>
+
+  /**
+   * Returns a list of available commands
+   */
   commands: (options?: AbortOptions & OptionExtension) => Promise<string[]>
+
   mount: (options?: MountOptions & OptionExtension) => Promise<MountResult>
+
+  /**
+   * Returns true if this IPFS node is online - that is, it's listening on network addresses
+   * for incoming connections
+   */
   isOnline: () => boolean
 }
 

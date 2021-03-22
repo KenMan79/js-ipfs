@@ -36,7 +36,7 @@
     "ipfs-http-client": "^49.0.4",
     "ipfs-http-gateway": "^0.3.2",
     "ipfs-http-server": "^0.3.4",
-    "ipfs-utils": "ipfs/js-ipfs-utils#fix/allow-more-mtime-types",
+    "ipfs-utils": "^6.0.4",
     "just-safe-set": "^2.1.0",
     "libp2p": "^0.30.7",
     "libp2p-delegated-content-routing": "^0.9.0",

@@ -58,7 +58,7 @@
     "ipfs-core-types": "^0.3.1",
     "ipfs-http-client": "^49.0.4",
     "ipfs-interop": "^4.0.3",
-    "ipfs-utils": "ipfs/js-ipfs-utils#fix/allow-more-mtime-types",
+    "ipfs-utils": "^6.0.4",
     "ipfsd-ctl": "ipfs/js-ipfsd-ctl#chore/switch-to-create-for-http-client",
     "iso-url": "^1.0.0",
     "libp2p-webrtc-star": "^0.21.0",

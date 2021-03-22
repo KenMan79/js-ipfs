@@ -132,5 +132,3 @@ export interface BufferStore {
   get: (key: Uint8Array) => Promise<Uint8Array>
   stores: any[]
 }
-
-export type HigherOrderFn = (fn: (...args: Parameters<T>) => ReturnType<T>) => (...args: Parameters<T>) => ReturnType<T>

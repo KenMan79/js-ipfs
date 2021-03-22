@@ -7,16 +7,159 @@ import { Mtime } from 'ipfs-unixfs'
 import type { AddProgressFn } from '../root'
 
 export interface API<OptionExtension = {}> {
+  /**
+   * Change mode for files and directories
+   *
+   * @example
+   * ```js
+   * // To give a file -rwxrwxrwx permissions
+   * await ipfs.files.chmod('/path/to/file.txt', parseInt('0777', 8))
+   *
+   * // Alternatively
+   * await ipfs.files.chmod('/path/to/file.txt', '+rwx')
+   *
+   * // You can omit the leading `0` too
+   * await ipfs.files.chmod('/path/to/file.txt', '777')
+   * ```
+   */
   chmod: (path: string, mode: number | string, options?: ChmodOptions & OptionExtension) => Promise<void>
+
+  /**
+   * Copy files from one location to another
+   *
+   * - If from has multiple values then to must be a directory.
+   * - If from has a single value and to exists and is a directory, from will be copied into to.
+   * - If from has a single value and to exists and is a file, from must be a file and the contents of to will be replaced with the contents of from otherwise an error will be returned.
+   * - If from is an IPFS path, and an MFS path exists with the same name, the IPFS path will be chosen.
+   * - If from is an IPFS path and the content does not exist in your node's repo, only the root node of the source file with be retrieved from the network and linked to from the destination. The remainder of the file will be retrieved on demand.
+   *
+   * @example
+   * ```js
+   * // To copy a file
+* await ipfs.files.cp('/src-file', '/dst-file')
+*
+* // To copy a directory
+* await ipfs.files.cp('/src-dir', '/dst-dir')
+*
+* // To copy multiple files to a directory
+* await ipfs.files.cp('/src-file1', '/src-file2', '/dst-dir')
+   * ```
+   */
   cp: (from: IPFSPath | IPFSPath[], to: string, options?: CpOptions & OptionExtension) => Promise<void>
+
+  /**
+   * Make a directory in your MFS
+   */
   mkdir: (path: string, options?: MkdirOptions & OptionExtension) => Promise<void>
+
+  /**
+   * Get file or directory statistics
+   */
   stat: (ipfsPath: IPFSPath, options?: StatOptions & OptionExtension) => Promise<StatResult>
+
+  /**
+   * Update the mtime of a file or directory
+   *
+   * @example
+   * ```js
+   * // set the mtime to the current time
+   * await ipfs.files.touch('/path/to/file.txt')
+   *
+   * // set the mtime to a specific time
+   * await ipfs.files.touch('/path/to/file.txt', {
+   *   mtime: new Date('May 23, 2014 14:45:14 -0700')
+   * })
+   * ```
+   */
   touch: (ipfsPath: string, options?: TouchOptions & OptionExtension) => Promise<void>
+
+  /**
+   * Remove a file or directory
+   *
+   * @example
+   * ```js
+   * // To remove a file
+   * await ipfs.files.rm('/my/beautiful/file.txt')
+   *
+   * // To remove multiple files
+   * await ipfs.files.rm('/my/beautiful/file.txt', '/my/other/file.txt')
+   *
+   * // To remove a directory
+   * await ipfs.files.rm('/my/beautiful/directory', { recursive: true })
+   * ```
+   */
   rm: (ipfsPaths: string | string[], options?: RmOptions & OptionExtension) => Promise<void>
+
+  /**
+   * Read a file
+   *
+   * @example
+   * ```js
+   * const chunks = []
+   *
+   * for await (const chunk of ipfs.files.read('/hello-world')) {
+   *   chunks.push(chunk)
+   * }
+   *
+   * console.log(uint8ArrayConcat(chunks).toString())
+   * // Hello, World!
+   * ```
+   */
   read: (ipfsPath: IPFSPath, options?: ResolveOptions & OptionExtension) => AsyncIterable<Uint8Array>
+
+  /**
+   * Write to an MFS path
+   *
+   * @example
+   * ```js
+   * await ipfs.files.write('/hello-world', new TextEncoder().encode('Hello, world!'))
+   * ```
+   */
   write: (ipfsPath: string, content: string | Uint8Array | Blob | AsyncIterable<Uint8Array> | Iterable<Uint8Array>, options?: WriteOptions & OptionExtension) => Promise<void>
+
+  /**
+   * Move files from one location to another
+   *
+   * - If from has multiple values then to must be a directory.
+   * - If from has a single value and to exists and is a directory, from will be moved into to.
+   * - If from has a single value and to exists and is a file, from must be a file and the contents of to will be replaced with the contents of from otherwise an error will be returned.
+   * - If from is an IPFS path, and an MFS path exists with the same name, the IPFS path will be chosen.
+   * - If from is an IPFS path and the content does not exist in your node's repo, only the root node of the source file with be retrieved from the network and linked to from the destination. The remainder of the file will be retrieved on demand.
+   * - All values of from will be removed after the operation is complete unless they are an IPFS path.
+   *
+   * @example
+   * ```js
+   * await ipfs.files.mv('/src-file', '/dst-file')
+   *
+   * await ipfs.files.mv('/src-dir', '/dst-dir')
+   *
+   * await ipfs.files.mv('/src-file1', '/src-file2', '/dst-dir')
+   * ```
+   */
   mv: (from: string | string[], to: string, options?: MvOptions & OptionExtension) => Promise<void>
+
+  /**
+   * Flush a given path's data to the disk
+   *
+   * @example
+   * ```js
+   * const cid = await ipfs.files.flush('/')
+   * ```
+   */
   flush: (ipfsPath: string, options?: AbortOptions & OptionExtension) => Promise<CID>
+
+  /**
+   * List directories in the local mutable namespace
+   *
+   * @example
+   * ```js
+   * for await (const file of ipfs.files.ls('/screenshots')) {
+   *   console.log(file.name)
+   * }
+   * // 2018-01-22T18:08:46.775Z.png
+   * // 2018-01-22T18:08:49.184Z.png
+   * ```
+   */
   ls: (ipfsPath: IPFSPath, options?: AbortOptions & OptionExtension) => AsyncIterable<MFSEntry>
 }
 

@@ -15,7 +15,7 @@
     "human-crypto-keys": "^0.1.4",
     "ipfs": "^0.54.4",
     "ipfs-http-client": "^49.0.4",
-    "ipfs-utils": "ipfs/js-ipfs-utils#fix/allow-more-mtime-types",
+    "ipfs-utils": "^6.0.4",
     "ipns": "^0.10.0",
     "it-last": "^1.0.4",
     "p-retry": "^4.2.0",

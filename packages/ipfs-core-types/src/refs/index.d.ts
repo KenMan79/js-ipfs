@@ -2,7 +2,14 @@ import type { AbortOptions, PreloadOptions, IPFSPath } from '../basic'
 import type CID from 'cids'
 
 export type API<OptionExtension = {}> = {
+  /**
+   * Get links (references) from an object
+   */
   refs: Refs<OptionExtension>
+
+  /**
+   * List blocks stored in the local block store
+   */
   local: Local<OptionExtension>
 }
 

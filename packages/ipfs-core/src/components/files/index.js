@@ -82,14 +82,14 @@ function createMfs (options) {
   const lock = createLock(repoOwner)
 
   /**
-   * @type {import('ipfs-core-types/src/basic').HigherOrderFn}
+   * @param {(fn: (...args: any) => any) => (...args: any) => any} operation
    */
   const readLock = (operation) => {
     return lock.readLock(operation)
   }
 
   /**
-   * @type {import('ipfs-core-types/src/basic').HigherOrderFn}
+   * @param {(fn: (...args: any) => any) => (...args: any) => any} operation
    */
   const writeLock = (operation) => {
     return lock.writeLock(operation)
@@ -132,21 +132,28 @@ module.exports = ({ ipld, block, blockService, repo, preload, options: construct
   })
 
   /**
-   * @type {import('ipfs-core-types/src/basic').HigherOrderFn}
+   * @param {any} fn
    */
-  const withPreload = fn => (...args) => {
-    // @ts-ignore cannot derive type of arg
-    const paths = args.filter(arg => isIpfs.ipfsPath(arg) || isIpfs.cid(arg))
+  const withPreload = fn => {
+    /**
+     * @param  {...any} args
+     */
+    const wrapped = (...args) => {
+      // @ts-ignore cannot derive type of arg
+      const paths = args.filter(arg => isIpfs.ipfsPath(arg) || isIpfs.cid(arg))
 
-    if (paths.length) {
-      const options = args[args.length - 1]
-      // @ts-ignore it's a PreloadOptions, honest
-      if (options && options.preload !== false) {
-        paths.forEach(path => preload(path))
+      if (paths.length) {
+        const options = args[args.length - 1]
+        // @ts-ignore it's a PreloadOptions, honest
+        if (options && options.preload !== false) {
+          paths.forEach(path => preload(path))
+        }
       }
+
+      return fn(...args)
     }
 
-    return fn(...args)
+    return wrapped
   }
 
   return {
@@ -161,7 +168,7 @@ module.exports = ({ ipld, block, blockService, repo, preload, options: construct
     write: methods.write,
     mv: withPreload(methods.mv),
     flush: methods.flush,
-    ls: withPreload(async function * (...args) {
+    ls: withPreload(async function * (/** @type {...any} */ ...args) {
       for await (const file of methods.ls(...args)) {
         yield { ...file, size: file.size || 0 }
       }
