@@ -56,7 +56,7 @@ module.exports = {
    * @param {number} argv.mhlen
    * @param {import('cids').CIDVersion} argv.version
    * @param {boolean} argv.pin
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {number} argv.timeout
    */
   async handler ({ ctx: { ipfs, print, getStdin }, block, timeout, format, mhtype, mhlen, version, cidBase, pin }) {

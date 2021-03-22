@@ -63,7 +63,7 @@ Mtime: <mtime>`,
    * @param {boolean} argv.hash
    * @param {boolean} argv.size
    * @param {boolean} argv.withLocal
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {number} argv.timeout
    */
   handler ({

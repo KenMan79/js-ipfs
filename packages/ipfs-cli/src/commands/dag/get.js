@@ -42,7 +42,7 @@ module.exports = {
    * @param {object} argv
    * @param {import('../../types').Context} argv.ctx
    * @param {string} argv.cidpath
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {'base16' | 'base64' | 'base58btc'} argv.dataEnc
    * @param {boolean} argv.localResolve
    * @param {number} argv.timeout

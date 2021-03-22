@@ -44,7 +44,7 @@ module.exports = {
    * @param {string[]} argv.ipfsPath
    * @param {'direct' | 'indirect' | 'recursive' | 'all'} argv.type
    * @param {boolean} argv.quiet
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {number} argv.timeout
    */
   async handler ({ ctx: { ipfs, print }, ipfsPath, type, quiet, cidBase, timeout }) {

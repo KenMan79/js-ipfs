@@ -5,7 +5,7 @@ const errCode = require('err-code')
 const withTimeoutOption = require('ipfs-core-utils/src/with-timeout-option')
 
 /**
- * @typedef {import('multibase/src/types').BaseName} BaseName
+ * @typedef {import('multibase').BaseName} BaseName
  */
 
 /**

@@ -33,7 +33,7 @@ module.exports = {
    * @param {import('../../types').Context} argv.ctx
    * @param {string} argv.data
    * @param {import('ipfs-core-types/src/object').PutEncoding} argv.inputEnc
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {number} argv.timeout
    */
   async handler ({ ctx: { ipfs, print, getStdin }, data, inputEnc, cidBase, timeout }) {

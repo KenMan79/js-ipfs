@@ -193,7 +193,7 @@ module.exports = {
    * @param {boolean} argv.preserveMode
    * @param {boolean} argv.preserveMtime
    * @param {number} argv.mode
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {boolean} argv.enableShardingExperiment
    */
   async handler ({

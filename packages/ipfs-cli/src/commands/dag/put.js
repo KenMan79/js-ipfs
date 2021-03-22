@@ -106,7 +106,7 @@ module.exports = {
    * @param {import('cids').CIDVersion} argv.cidVersion
    * @param {boolean} argv.pin
    * @param {import('multihashes').HashName} argv.hashAlg
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {boolean} argv.preload
    * @param {boolean} argv.onlyHash
    * @param {number} argv.timeout

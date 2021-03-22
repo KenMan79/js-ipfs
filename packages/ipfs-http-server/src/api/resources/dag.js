@@ -12,7 +12,7 @@ const uint8ArrayToString = require('uint8arrays/to-string')
 
 /**
  * @param {undefined | Uint8Array | Record<string, any>} obj
- * @param {import('multibase/src/types').BaseName | 'utf8' | 'utf-8' | 'ascii'} encoding
+ * @param {import('multibase').BaseName | 'utf8' | 'utf-8' | 'ascii'} encoding
  */
 const encodeBufferKeys = (obj, encoding) => {
   if (!obj) {

@@ -31,7 +31,7 @@ module.exports = {
    * @param {import('../../../types').Context} argv.ctx
    * @param {import('cids')} argv.root
    * @param {string} argv.link
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {number} argv.timeout
    */
   async handler ({ ctx: { ipfs, print }, root, link, cidBase, timeout }) {

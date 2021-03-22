@@ -43,7 +43,7 @@ module.exports = {
    * @param {import('cids')} argv.root
    * @param {string} argv.name
    * @param {import('cids')} argv.ref
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {import('cids').CIDVersion} argv.cidVersion
    * @param {number} argv.timeout
    */

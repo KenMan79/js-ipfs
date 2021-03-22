@@ -61,7 +61,7 @@ module.exports = {
    * @param {import('../../types').Context} argv.ctx
    * @param {string[]} argv.ipfsPath
    * @param {boolean} argv.recursive
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {number} argv.timeout
    * @param {Record<string, any>} argv.metadata
    * @param {Record<string, any>} argv.metadataJson

@@ -39,7 +39,7 @@ module.exports = {
    * @param {import('../../types').Context} argv.ctx
    * @param {import('cids')} argv.key
    * @param {'base64' | 'text' | 'hex'} argv.dataEncoding
-   * @param {import('multibase/src/types').BaseName} argv.cidBase
+   * @param {import('multibase').BaseName} argv.cidBase
    * @param {number} argv.timeout
    */
   async handler ({ ctx: { ipfs, print }, key, dataEncoding, cidBase, timeout }) {
