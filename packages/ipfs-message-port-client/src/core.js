@@ -78,6 +78,7 @@ CoreClient.prototype.addAll = async function * addAll (input, options = {}) {
   const result = await this.remote.addAll({
     ...options,
     input: encodeAddAllInput(input, transfer),
+    progress: undefined,
     progressCallback,
     transfer,
     timeout,
@@ -105,6 +106,7 @@ CoreClient.prototype.add = async function add (input, options = {}) {
   const result = await this.remote.add({
     ...options,
     input: encodeAddInput(input, transfer),
+    progress: undefined,
     progressCallback,
     transfer,
     timeout,
