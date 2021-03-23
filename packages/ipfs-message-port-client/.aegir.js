@@ -21,7 +21,7 @@ const buildConfig = {
 /** @type {import('aegir').PartialOptions} */
 module.exports = {
   build: {
-    bundlesizeMax: '40kB',
+    bundlesizeMax: '46kB',
     config: buildConfig
   },
   test: {
