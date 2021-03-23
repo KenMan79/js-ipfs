@@ -22,7 +22,7 @@ module.exports = configure(api => {
       timeout: options.timeout,
       signal: options.signal,
       searchParams: toUrlSearchParams({
-        arg: sources.map(src => CID.isCID(src) ? `/ipfs/${src}` : src),
+        arg: sources.concat(destination).map(src => CID.isCID(src) ? `/ipfs/${src}` : src),
         ...options
       }),
       headers: options.headers
