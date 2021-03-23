@@ -105,7 +105,7 @@ module.exports = {
         print(`HTTP API listening on ${apiServer.info.ma}`)
       })
       // @ts-ignore - _grpcServer is possibly undefined
-      print(`gRPC listening on ${daemon._grpcServer.multiaddr}`)
+      print(`gRPC listening on ${daemon._grpcServer.info.ma}`)
       // @ts-ignore - _httpGateway is possibly undefined
       daemon._httpGateway._gatewayServers.forEach(gatewayServer => {
         print(`Gateway (read only) listening on ${gatewayServer.info.ma}`)
