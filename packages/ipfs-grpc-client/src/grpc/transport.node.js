@@ -112,10 +112,10 @@ function websocketRequest (options) {
       }
 
       ws.onmessage = function (e) {
-        if (e.data instanceof Uint8Array) {
+        if (e.data instanceof ArrayBuffer) {
           options.onChunk(new Uint8Array(e.data, 0, e.data.byteLength))
         } else {
-          options.onEnd(new Error(`Incorrect message type received - expected Uint8Array, got ${typeof e.data}`))
+          options.onEnd(new Error(`Incorrect message type received - expected ArrayBuffer, got ${typeof e.data}`))
           ws.close()
         }
       }

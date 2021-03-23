@@ -53,7 +53,10 @@ module.exports = function bidiToDuplex (grpc, service, options) {
         status
       })
 
-      err.stack = trailers.get('grpc-stack')[0] || error.stack
+      let stack = trailers.get('grpc-stack')[0]
+      stack = stack && stack.replace(/\\n/g, '\n')
+
+      err.stack = stack || error.stack
     }
 
     sink.end(err)

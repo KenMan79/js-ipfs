@@ -13,7 +13,9 @@ const {
  * @param {*} content
  */
 async function * stream (path, content) {
-  yield { path, content: normaliseContent(content) }
+  for await (const buf of normaliseContent(content)) {
+    yield { path, content: buf }
+  }
 }
 
 /**
