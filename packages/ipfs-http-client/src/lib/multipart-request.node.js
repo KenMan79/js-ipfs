@@ -69,10 +69,9 @@ async function multipartRequest (source, abortController, headers = {}, boundary
 
         index++
       }
-    } catch (err) {
+    } catch {
       // workaround for https://github.com/node-fetch/node-fetch/issues/753
-      // @ts-ignore - abort does not expect an arguments
-      abortController.abort(err)
+      abortController.abort()
     } finally {
       yield `\r\n--${boundary}--\r\n`
     }
