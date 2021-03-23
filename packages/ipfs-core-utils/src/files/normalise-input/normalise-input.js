@@ -28,7 +28,7 @@ const {
 // eslint-disable-next-line complexity
 module.exports = async function * normaliseInput (input, normaliseContent) {
   if (input === null || input === undefined) {
-    return []
+    return
   }
 
   // String
